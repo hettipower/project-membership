@@ -8,11 +8,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <li class="breadcrumb-item active">Add Member</li>
 </ol>
 
-<?php
-  //print_r($admin_groups);
-  print_r($provinces);
-?>
-
 <form method="POST" action="<?=base_url()?>settings/admins">
   <input type="hidden" name="action" value="add">
   <div class="form-group row">
@@ -86,11 +81,65 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
   <div class="form-group row">
-    <label for="city" class="col-2 col-form-label">City</label>
+    <label for="town" class="col-2 col-form-label">Town</label>
     <div class="col-10">
-      <select name="city" id="city" class="select2Single form-control" required>
-        <option value="">Select District</option>
+      <select name="town" id="town" class="select2Single form-control" required disabled>
+        <option value="">Select Town</option>
       </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="asanaya" class="col-2 col-form-label">Asanaya</label>
+    <div class="col-10">
+      <input class="form-control" type="text" value="" name="asanaya" id="asanaya" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="contact_no" class="col-2 col-form-label">Contact Number</label>
+    <div class="col-10">
+      <input class="form-control" type="text" value="" name="contact_no" id="contact_no" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="school" class="col-2 col-form-label">School</label>
+    <div class="col-10">
+      <input class="form-control" type="text" value="" name="school" id="school" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="institute" class="col-2 col-form-label">Institute</label>
+    <div class="col-10">
+      <input class="form-control" type="text" value="" name="institute" id="institute" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="job" class="col-2 col-form-label">Job</label>
+    <div class="col-10">
+      <input class="form-control" type="text" value="" name="job" id="job" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="office" class="col-2 col-form-label">Office</label>
+    <div class="col-10">
+      <input class="form-control" type="text" value="" name="office" id="office" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="political_institute" class="col-2 col-form-label">Political Institute</label>
+    <div class="col-10">
+      <input class="form-control" type="text" value="" name="political_institute" id="political_institute" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="candidate" class="col-2 col-form-label">Candidate</label>
+    <div class="col-10">
+      <input class="form-control" type="text" value="" name="candidate" id="candidate" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="other" class="col-2 col-form-label">අන්තර් පුද්ගල මානව හැකියාවන්</label>
+    <div class="col-10">
+      <textarea name="other" id="other" class="form-control"></textarea>
     </div>
   </div>
   <div class="form-group row">
@@ -113,5 +162,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script>
   jQuery(document).ready(function($) {
     $('.select2Single').select2();
+
+    $('#district').on('change', function () {
+      var district = $(this).val();
+      $('#town').html('').attr('disabled', 'disabled');
+      $.ajax({
+        url: '<?=base_url()?>Settings/get_cities_relatedto_district',
+        type: 'POST',
+        data: {
+          district: district
+        },
+        dataType: 'json',
+        success: function(results) {
+          //console.log(results);
+          if( results.status === true ){
+            $('#town').html('<option value="">Select Town</option>');
+            $.each(results.content, function (indexInArray, valueOfElement) { 
+              //console.log(valueOfElement.citiy);
+              $('#town').append('<option value="'+valueOfElement.citiy+'">'+valueOfElement.citiy+'</option>');
+            });
+            $('#town').removeAttr('disabled');
+          }
+        }
+      });
+    });
+
+
   });
 </script>

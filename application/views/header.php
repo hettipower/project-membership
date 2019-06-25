@@ -50,8 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li class="nav-item">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"><i class="fa fa-fw fa-wrench"></i> Settings</a>
                     <ul class="sidebar-second-level collapse" id="collapseComponents">
-                        <li><a href="<?=base_url()?>settings/admins">Admins</a></li>
-                        <li><a href="<?=base_url()?>settings/groups">Admin Groups</a></li> 
+                        <li><a href="<?=base_url()?>settings/admins">Members</a></li>
+                        <li><a href="<?=base_url()?>settings/groups">Member Groups</a></li> 
+                        <li><a href="<?=base_url()?>settings/provinces">Provinces</a></li> 
                     </ul>
                 </li>
             </ul>
