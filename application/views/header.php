@@ -25,10 +25,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Plugin CSS -->
     <link href="<?=base_url()?>resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-    <?php if( isset($page) && ( $page == 'add' || $page == 'edit' ) ): ?>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet">
-    <?php endif; ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="<?=base_url()?>resources/css/sb-admin.css" rel="stylesheet">
 
@@ -52,7 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <ul class="sidebar-second-level collapse" id="collapseComponents">
                         <li><a href="<?=base_url()?>settings/admins">Members</a></li>
                         <li><a href="<?=base_url()?>settings/groups">Member Groups</a></li> 
-                        <li><a href="<?=base_url()?>settings/provinces">Provinces</a></li> 
+                        <li><a href="<?=base_url()?>settings/provinces">Provinces</a></li>
+                        <li><a href="<?=base_url()?>settings/districts">Districts</a></li> 
                     </ul>
                 </li>
             </ul>

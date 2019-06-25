@@ -160,8 +160,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
 </form>
 <script>
-  jQuery(document).ready(function($) {
-    $('.select2Single').select2();
+  jQuery(document).ready(function($) {   
 
     $('#district').on('change', function () {
       var district = $(this).val();
