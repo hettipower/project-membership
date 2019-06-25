@@ -46,12 +46,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a class="nav-link" href="<?=base_url()?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"><i class="fa fa-fw fa-wrench"></i> Settings</a>
-                    <ul class="sidebar-second-level collapse" id="collapseComponents">
-                        <li><a href="<?=base_url()?>settings/admins">Members</a></li>
-                        <li><a href="<?=base_url()?>settings/groups">Member Groups</a></li> 
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settings"><i class="fa fa-fw fa-wrench"></i> Settings</a>
+                    <ul class="sidebar-second-level collapse" id="settings">
                         <li><a href="<?=base_url()?>settings/provinces">Provinces</a></li>
                         <li><a href="<?=base_url()?>settings/districts">Districts</a></li> 
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#members"><i class="fa fa-fw fa-wrench"></i> Members</a>
+                    <ul class="sidebar-second-level collapse" id="members">
+                        <li><a href="<?=base_url()?>users/admins">Members</a></li>
+                        <li><a href="<?=base_url()?>users/groups">Member Groups</a></li>
                     </ul>
                 </li>
             </ul>
