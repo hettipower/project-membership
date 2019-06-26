@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 25, 2019 at 12:51 PM
+-- Generation Time: Jun 26, 2019 at 10:12 AM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -51,6 +51,13 @@ CREATE TABLE `asanaya` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `asanaya`
+--
+
+INSERT INTO `asanaya` (`id`, `name`) VALUES
+(1, 'Homagama');
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +89,13 @@ CREATE TABLE `kottashaya` (
   `district` int(11) NOT NULL,
   `province` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kottashaya`
+--
+
+INSERT INTO `kottashaya` (`id`, `name`, `district`, `province`) VALUES
+(1, 'Homagama', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -123,6 +137,13 @@ CREATE TABLE `town` (
   `district` int(11) NOT NULL,
   `province` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `town`
+--
+
+INSERT INTO `town` (`id`, `name`, `wasama`, `kottashaya`, `district`, `province`) VALUES
+(1, 'Homagama', 1, 1, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -179,6 +200,13 @@ CREATE TABLE `wasama` (
   `district` int(11) NOT NULL,
   `province` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `wasama`
+--
+
+INSERT INTO `wasama` (`id`, `name`, `kottashaya`, `district`, `province`) VALUES
+(1, 'Galawilawaththa North', 1, 1, 9);
 
 --
 -- Indexes for dumped tables
@@ -240,49 +268,49 @@ ALTER TABLE `wasama`
 -- AUTO_INCREMENT for table `admin_groups`
 --
 ALTER TABLE `admin_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `asanaya`
 --
 ALTER TABLE `asanaya`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `districts`
 --
 ALTER TABLE `districts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kottashaya`
 --
 ALTER TABLE `kottashaya`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `provinces`
 --
 ALTER TABLE `provinces`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `town`
 --
 ALTER TABLE `town`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `wasama`
 --
 ALTER TABLE `wasama`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
