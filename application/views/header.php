@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <title>Membership Project</title>
 
     <!-- core JavaScript -->
-    <script src="<?=base_url()?>resources/vendor/jquery/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <!-- Bootstrap core CSS -->
     <link href="<?=base_url()?>resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -49,7 +49,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settings"><i class="fa fa-fw fa-wrench"></i> Settings</a>
                     <ul class="sidebar-second-level collapse" id="settings">
                         <li><a href="<?=base_url()?>settings/provinces">Provinces</a></li>
-                        <li><a href="<?=base_url()?>settings/districts">Districts</a></li> 
+                        <li><a href="<?=base_url()?>settings/districts">Districts</a></li>
+                        <li><a href="<?=base_url()?>settings/kottashaya">Divisional Secretariats</a></li>
+                        <li><a href="<?=base_url()?>settings/gn_division">GN Divisions</a></li>  
                     </ul>
                 </li>
                 <li class="nav-item">

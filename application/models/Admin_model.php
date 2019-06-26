@@ -143,6 +143,46 @@ class Admin_model extends CI_Model {
         } 
     }
 
+    function getKottashaya(){
+        $sql = "SELECT * FROM kottashaya";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
+    function getGNDivitions(){
+        $sql = "SELECT * FROM wasama";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
+    function getDistrictsFromProvince($province){
+        $sql = "SELECT * FROM `districts` WHERE `province` = '$province' ";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
+    function getKottashaFromProvinceDistrict($province , $district){
+        $sql = "SELECT * FROM kottashaya WHERE district = ".$district." AND province = ".$province;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
     function getCitiesFromDistrict($district){
         $sql = "SELECT * FROM `cities` WHERE `district` = '$district' ";
         $query = $this->db->query($sql);
@@ -415,7 +455,7 @@ class Admin_model extends CI_Model {
         }
         if ($action == "delete") {
             $districtID = $this->db->escape(strip_tags((int)$postData["id"]));
-            $sql = "SELECT * FROM cities WHERE district = ".$districtID;
+            $sql = "SELECT * FROM kottashaya WHERE district = ".$districtID;
             $query = $this->db->query($sql);
             if ($query->num_rows() > 0) {
                 return 6;
@@ -432,6 +472,223 @@ class Admin_model extends CI_Model {
             $additional = "WHERE id = ".$this->db->escape($additional); 
         }
         $sql = "SELECT * FROM districts ".$additional;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
+    }
+
+    public function updateKottashaya($postData=null, $action=null) {
+        $results = array();
+        if ($action == "add") {
+            $error = 0;
+            if (!isset($postData["province"]) || empty($postData["province"])) { 
+                $error = 2;
+            } else { 
+                $province = $this->db->escape(strip_tags($postData["province"]));
+            }
+
+            if (!isset($postData["district"]) || empty($postData["district"])) { 
+                $error = 2;
+            } else { 
+                $district = $this->db->escape(strip_tags($postData["district"]));
+            }
+
+            if (!isset($postData["divi_secretariat"]) || empty($postData["divi_secretariat"])) { 
+                $error = 2;
+            } else { 
+                $divi_secretariat = $this->db->escape(strip_tags($postData["divi_secretariat"]));
+                $divi_secretariatID = $this->db->escape(strip_tags($postData["id"]));
+            }
+
+            if ($error == 2) { 
+                return $error; 
+            }
+
+            $sql = "SELECT * FROM kottashaya WHERE district = ".$district." AND province = ".$province." AND name = ".$divi_secretariat;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 3;
+            } else {
+                $sql2 = "INSERT INTO kottashaya (id,name,district,province) VALUES (".$divi_secretariatID.",".$divi_secretariat.",".$district.",".$province.")";
+                $this->db->query($sql2);
+                return 1;
+            }
+        }
+        if ($action == "edit") {
+            $error = 0;
+            if (!isset($postData["province"]) || empty($postData["province"])) { 
+                $error = 2;
+            } else { 
+                $province = $this->db->escape(strip_tags($postData["province"]));
+            }
+
+            if (!isset($postData["district"]) || empty($postData["district"])) { 
+                $error = 2;
+            } else { 
+                $district = $this->db->escape(strip_tags($postData["district"]));
+            }
+
+            if (!isset($postData["divi_secretariat"]) || empty($postData["divi_secretariat"])) { 
+                $error = 2;
+            } else { 
+                $divi_secretariat = $this->db->escape(strip_tags($postData["divi_secretariat"]));
+            }
+
+            if (!isset($postData["id"]) || empty($postData["id"])) { 
+                $error = 2;
+            } else { 
+                $divi_secretariatID = $this->db->escape(strip_tags($postData["id"]));
+            }
+
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM kottashaya WHERE district = ".$district." AND province = ".$province." AND name = ".$divi_secretariat;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 4;
+            } else {
+                $sql2 = "UPDATE kottashaya SET name = ".$divi_secretariat." , district = ".$district." , province = ".$province." WHERE id = ".$divi_secretariatID;
+                $this->db->query($sql2);
+                return 5;
+            }
+        }
+        if ($action == "delete") {
+            $divi_secretariatID = $this->db->escape(strip_tags((int)$postData["id"]));
+            $sql = "SELECT * FROM wasama WHERE kottashaya = ".$divi_secretariatID;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 6;
+            } else {
+                $sql2 = "DELETE FROM kottashaya WHERE id = ".$divi_secretariatID;
+                $this->db->query($sql2);
+                return 7;
+            }
+        }
+    }
+
+    public function getKottashayaFormID($additional="") {
+        if ($additional !== "") { 
+            $additional = "WHERE id = ".$this->db->escape($additional); 
+        }
+        $sql = "SELECT * FROM kottashaya ".$additional;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
+    }
+
+    public function updateDivition($postData=null, $action=null) {
+        $results = array();
+        if ($action == "add") {
+            $error = 0;
+            if (!isset($postData["province"]) || empty($postData["province"])) { 
+                $error = 2;
+            } else { 
+                $province = $this->db->escape(strip_tags($postData["province"]));
+            }
+
+            if (!isset($postData["district"]) || empty($postData["district"])) { 
+                $error = 2;
+            } else { 
+                $district = $this->db->escape(strip_tags($postData["district"]));
+            }
+
+            if (!isset($postData["divi_secretariat"]) || empty($postData["divi_secretariat"])) { 
+                $error = 2;
+            } else { 
+                $divi_secretariat = $this->db->escape(strip_tags($postData["divi_secretariat"]));
+            }
+
+            if (!isset($postData["divition"]) || empty($postData["divition"])) { 
+                $error = 2;
+            } else { 
+                $divition = $this->db->escape(strip_tags($postData["divition"]));
+                $divitionID = $this->db->escape(strip_tags($postData["id"]));
+            }
+
+            if ($error == 2) { 
+                return $error; 
+            }
+
+            $sql = "SELECT * FROM wasama WHERE district = ".$district." AND province = ".$province." AND kottashaya = ".$divi_secretariat." AND name = ".$divition;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 3;
+            } else {
+                $sql2 = "INSERT INTO wasama (id,name,kottashaya,district,province) VALUES (".$divitionID.",".$divition.",".$divi_secretariat.",".$district.",".$province.")";
+                $this->db->query($sql2);
+                return 1;
+            }
+        }
+        if ($action == "edit") {
+            $error = 0;
+            if (!isset($postData["province"]) || empty($postData["province"])) { 
+                $error = 2;
+            } else { 
+                $province = $this->db->escape(strip_tags($postData["province"]));
+            }
+
+            if (!isset($postData["district"]) || empty($postData["district"])) { 
+                $error = 2;
+            } else { 
+                $district = $this->db->escape(strip_tags($postData["district"]));
+            }
+
+            if (!isset($postData["divi_secretariat"]) || empty($postData["divi_secretariat"])) { 
+                $error = 2;
+            } else { 
+                $divi_secretariat = $this->db->escape(strip_tags($postData["divi_secretariat"]));
+            }
+
+            if (!isset($postData["divition"]) || empty($postData["divition"])) { 
+                $error = 2;
+            } else { 
+                $divition = $this->db->escape(strip_tags($postData["divition"]));
+            }
+
+            if (!isset($postData["id"]) || empty($postData["id"])) { 
+                $error = 2;
+            } else { 
+                $divitionID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM wasama WHERE district = ".$district." AND province = ".$province." AND kottashaya = ".$divi_secretariat." AND name = ".$divition;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 4;
+            } else {
+                $sql2 = "UPDATE wasama SET name = ".$divition." , kottashaya = ".$divi_secretariat." , district = ".$district." , province = ".$province." WHERE id = ".$divitionID;
+                $this->db->query($sql2);
+                return 5;
+            }
+        }
+        if ($action == "delete") {
+            $divitionID = $this->db->escape(strip_tags((int)$postData["id"]));
+            $sql = "SELECT * FROM town WHERE wasama = ".$divitionID;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 6;
+            } else {
+                $sql2 = "DELETE FROM wasama WHERE id = ".$divitionID;
+                $this->db->query($sql2);
+                return 7;
+            }
+        }
+    }
+
+    public function getDivitionFormID($additional="") {
+        if ($additional !== "") { 
+            $additional = "WHERE id = ".$this->db->escape($additional); 
+        }
+        $sql = "SELECT * FROM wasama ".$additional;
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();

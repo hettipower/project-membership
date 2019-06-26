@@ -77,7 +77,7 @@ class Settings extends CI_Controller {
 						$this->session->set_flashdata('error', "Please Fill Fields.");
 						break;
 					case '3':
-						$this->session->set_flashdata('error', "Already Added this Distric.");
+						$this->session->set_flashdata('error', "Already Added this District.");
 						break;
 					case '4':
 						$this->session->set_flashdata('error', "Need to update field.");
@@ -86,7 +86,7 @@ class Settings extends CI_Controller {
 						$this->session->set_flashdata('success', "Successfully edited District.");
 						break;
 					case '6':
-						$this->session->set_flashdata('error', "Please remove City first.");
+						$this->session->set_flashdata('error', "Please remove Divisional Secretariat first.");
 						break;
 					case '7':
 						$this->session->set_flashdata('success', "Successfully removed District.");
@@ -116,6 +116,152 @@ class Settings extends CI_Controller {
 				$this->load->view('footer');
 			} 
 		}
+	}
+
+	public function kottashaya($page=null, $kottashaID=0) {
+		if ($this->Admin_model->verifyUser()) {
+			$this->session->set_flashdata('' , '');
+			if ($this->input->post()){
+				$postData = $this->input->post();
+				$responce = $this->Admin_model->updateKottashaya($postData, $postData["action"]);
+				switch ($responce) {
+					case '1':
+						$this->session->set_flashdata('success', "Successfully added Divisional Secretariat.");
+						break;
+					case '2':
+						$this->session->set_flashdata('error', "Please Fill Fields.");
+						break;
+					case '3':
+						$this->session->set_flashdata('error', "Already Added this Divisional Secretariat.");
+						break;
+					case '4':
+						$this->session->set_flashdata('error', "Need to update field.");
+						break;
+					case '5':
+						$this->session->set_flashdata('success', "Successfully edited Divisional Secretariat.");
+						break;
+					case '6':
+						$this->session->set_flashdata('error', "Please remove GN Division first.");
+						break;
+					case '7':
+						$this->session->set_flashdata('success', "Successfully removed Divisional Secretariat.");
+						break;
+					default:
+						$this->session->set_flashdata('error', "Something went wrong.");
+						break;
+				}
+			}
+			if ($page == "add") {
+				$data["districts"] = $this->Admin_model->getDistricts();
+				$data["provinces"] = $this->Admin_model->getProvinces();
+				$data["kottasha"] = $this->Admin_model->getKottashaya();
+				$this->load->view('header');
+				$this->load->view('settings/kottashaya_add' , $data);
+				$this->load->view('footer');
+			} elseif ($page == "edit") {
+				$data["provinces"] = $this->Admin_model->getProvinces();
+				$data["districts"] = $this->Admin_model->getDistricts();
+				$data["result"] = $this->Admin_model->getKottashayaFormID($kottashaID);
+				$this->load->view('header');
+				$this->load->view('settings/kottashaya_edit', $data);
+				$this->load->view('footer');
+			} else {
+				$data["provinces"] = $this->Admin_model->getProvinces();
+				$data["districts"] = $this->Admin_model->getDistricts();
+				$data["kottasha"] = $this->Admin_model->getKottashaya();
+				$this->load->view('header');
+				$this->load->view('settings/kottashaya', $data);
+				$this->load->view('footer');
+			} 
+		}
+	}
+
+	public function get_district_relatedto_province(){
+		$results = array();
+		$province = $this->input->post('province');
+		$districts = $this->Admin_model->getDistrictsFromProvince($province);
+		if( !empty($districts) ){
+			$results['status'] = true;
+			$results['content'] = $districts;
+		}else{
+			$results['status'] = false;
+		}
+		echo json_encode($results);
+	}
+
+	public function gn_division($page=null, $divitionID=0) {
+		if ($this->Admin_model->verifyUser()) {
+			$this->session->set_flashdata('' , '');
+			if ($this->input->post()){
+				$postData = $this->input->post();
+				$responce = $this->Admin_model->updateDivition($postData, $postData["action"]);
+				switch ($responce) {
+					case '1':
+						$this->session->set_flashdata('success', "Successfully added GN Division.");
+						break;
+					case '2':
+						$this->session->set_flashdata('error', "Please Fill Fields.");
+						break;
+					case '3':
+						$this->session->set_flashdata('error', "Already Added this GN Division.");
+						break;
+					case '4':
+						$this->session->set_flashdata('error', "Need to update field.");
+						break;
+					case '5':
+						$this->session->set_flashdata('success', "Successfully edited GN Division.");
+						break;
+					case '6':
+						$this->session->set_flashdata('error', "Please remove Town first.");
+						break;
+					case '7':
+						$this->session->set_flashdata('success', "Successfully removed GN Division.");
+						break;
+					default:
+						$this->session->set_flashdata('error', "Something went wrong.");
+						break;
+				}
+			}
+			if ($page == "add") {
+				$data["districts"] = $this->Admin_model->getDistricts();
+				$data["provinces"] = $this->Admin_model->getProvinces();
+				$data["kottasha"] = $this->Admin_model->getKottashaya();				
+				$data["gn_divisions"] = $this->Admin_model->getGNDivitions();
+				$this->load->view('header');
+				$this->load->view('settings/gn_division_add' , $data);
+				$this->load->view('footer');
+			} elseif ($page == "edit") {
+				$data["provinces"] = $this->Admin_model->getProvinces();
+				$data["districts"] = $this->Admin_model->getDistricts();
+				$data["kottasha"] = $this->Admin_model->getKottashaya();
+				$data["result"] = $this->Admin_model->getDivitionFormID($divitionID);
+				$this->load->view('header');
+				$this->load->view('settings/gn_division_edit', $data);
+				$this->load->view('footer');
+			} else {
+				$data["provinces"] = $this->Admin_model->getProvinces();
+				$data["districts"] = $this->Admin_model->getDistricts();
+				$data["kottasha"] = $this->Admin_model->getKottashaya();
+				$data["gn_divisions"] = $this->Admin_model->getGNDivitions();
+				$this->load->view('header');
+				$this->load->view('settings/gn_division', $data);
+				$this->load->view('footer');
+			} 
+		}
+	}
+
+	public function get_kottasha_relatedto_province_and_district(){
+		$results = array();
+		$province = $this->input->post('province');
+		$district = $this->input->post('district');
+		$kottasha = $this->Admin_model->getKottashaFromProvinceDistrict($province , $district);
+		if( !empty($kottasha) ){
+			$results['status'] = true;
+			$results['content'] = $kottasha;
+		}else{
+			$results['status'] = false;
+		}
+		echo json_encode($results);
 	}
 
 	public function get_cities_relatedto_district(){
