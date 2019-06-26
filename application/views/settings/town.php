@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
     <li class="breadcrumb-item">Settings</li>
-    <li class="breadcrumb-item active">GN Divisions</li>
+    <li class="breadcrumb-item active">Town</li>
 </ol>
 
 <?php if( $this->session->flashdata('success') ): ?>
@@ -30,8 +30,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Example Tables Card -->
 <div class="card mb-3">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <span>GN Divisions</span>
-        <a href="<?=base_url()?>settings/gn_division/add" class="btn btn-primary">Add New</a>
+        <span>Town</span>
+        <a href="<?=base_url()?>settings/towns/add" class="btn btn-primary">Add New</a>
     </div>
     <div class="card-block">
         <div class="table-responsive">
@@ -39,6 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Town</th>
                         <th>GN Division</th>
                         <th>Divisional Secretariat</th>
                         <th>District</th>
@@ -49,6 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tfoot>
                     <tr>
                         <th>ID</th>
+                        <th>Town</th>
                         <th>GN Division</th>
                         <th>Divisional Secretariat</th>
                         <th>District</th>
@@ -57,14 +59,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </tr>
                 </tfoot>
                 <tbody>
-                <?php foreach ($gn_divisions as $division) { ?>
+                <?php foreach ($towns as $town) { ?>
                     <tr>
-                        <td><?=$division["id"]?></td>
-                        <td><?= $division["name"]; ?></td>
+                        <td><?=$town["id"]?></td>
+                        <td><?= $town["name"]; ?></td>
+                        <td>
+                            <?php 
+                                foreach ($gn_divisions as $division) {
+                                    if( $town["wasama"] == $division['id'] ){
+                                        echo $division['name'];
+                                    }
+                                }
+                            ?>
+                        </td>
                         <td>
                             <?php 
                                 foreach ($kottasha as $kottashaya) {
-                                    if( $division["kottashaya"] == $kottashaya['id'] ){
+                                    if( $town["kottashaya"] == $kottashaya['id'] ){
                                         echo $kottashaya['name'];
                                     }
                                 }
@@ -73,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <td>
                             <?php 
                                 foreach ($districts as $district) {
-                                    if( $division["district"] == $district['id'] ){
+                                    if( $town["district"] == $district['id'] ){
                                         echo $district['district'];
                                     }
                                 }
@@ -82,7 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <td>
                             <?php 
                                 foreach ($provinces as $province) {
-                                    if( $division["province"] == $province['id'] ){
+                                    if( $town["province"] == $province['id'] ){
                                         echo $province['province'];
                                     }
                                 }
@@ -91,10 +102,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <td>
                             <form method="POST" action="" style="display:inline;">
                                 <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="id" value="<?=$division["id"]?>">
+                                <input type="hidden" name="id" value="<?=$town["id"]?>">
                                 <input type="submit" class="btn btn-danger" value="Delete">
                             </form> 
-                            <a href="<?=base_url()?>settings/gn_division/edit/<?=$division["id"]?>" class="btn btn-primary">Edit</a>
+                            <a href="<?=base_url()?>settings/towns/edit/<?=$town["id"]?>" class="btn btn-primary">Edit</a>
                         </td>
                     </tr>
                 <?php } ?> 

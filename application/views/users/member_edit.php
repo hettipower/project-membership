@@ -4,9 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Breadcrumbs -->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
-                <li class="breadcrumb-item">Settings</li>
-                <li class="breadcrumb-item"><a href="<?=base_url()?>settings/admins">Admins</a></li>
-                <li class="breadcrumb-item active">Edit Admin</li>
+                <li class="breadcrumb-item"><a href="<?=base_url()?>users/members">Members</a></li>
+                <li class="breadcrumb-item active">Edit Member</li>
             </ol>
 
         <form method="POST" action="">

@@ -51,13 +51,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li><a href="<?=base_url()?>settings/provinces">Provinces</a></li>
                         <li><a href="<?=base_url()?>settings/districts">Districts</a></li>
                         <li><a href="<?=base_url()?>settings/kottashaya">Divisional Secretariats</a></li>
-                        <li><a href="<?=base_url()?>settings/gn_division">GN Divisions</a></li>  
+                        <li><a href="<?=base_url()?>settings/gn_division">GN Divisions</a></li>
+                        <li><a href="<?=base_url()?>settings/towns">Towns</a></li>
+                        <li><a href="<?=base_url()?>settings/seats">Seats / Divisions</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#members"><i class="fa fa-fw fa-wrench"></i> Members</a>
                     <ul class="sidebar-second-level collapse" id="members">
-                        <li><a href="<?=base_url()?>users/admins">Members</a></li>
+                        <li><a href="<?=base_url()?>users/members">Members</a></li>
                         <li><a href="<?=base_url()?>users/groups">Member Groups</a></li>
                     </ul>
                 </li>
