@@ -51,7 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li><a href="<?=base_url()?>settings/provinces">Provinces</a></li>
                         <li><a href="<?=base_url()?>settings/districts">Districts</a></li>
                         <li><a href="<?=base_url()?>settings/kottashaya">Divisional Secretariats</a></li>
-                        <li><a href="<?=base_url()?>settings/gn_division">GN Divisions</a></li>  
+                        <li><a href="<?=base_url()?>settings/gn_division">GN Divisions</a></li>
+                        <li><a href="<?=base_url()?>settings/towns">Towns</a></li> 
                     </ul>
                 </li>
                 <li class="nav-item">

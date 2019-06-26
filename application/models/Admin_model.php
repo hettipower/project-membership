@@ -163,6 +163,16 @@ class Admin_model extends CI_Model {
         } 
     }
 
+    function getTowns(){
+        $sql = "SELECT * FROM town";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
     function getDistrictsFromProvince($province){
         $sql = "SELECT * FROM `districts` WHERE `province` = '$province' ";
         $query = $this->db->query($sql);
@@ -175,6 +185,16 @@ class Admin_model extends CI_Model {
 
     function getKottashaFromProvinceDistrict($province , $district){
         $sql = "SELECT * FROM kottashaya WHERE district = ".$district." AND province = ".$province;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
+    function getDivitionFromProvinceDistrictKottasha($province , $district , $kottasha){
+        $sql = "SELECT * FROM wasama WHERE district = ".$district." AND province = ".$province." AND kottashaya = ".$kottasha;
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();
@@ -689,6 +709,127 @@ class Admin_model extends CI_Model {
             $additional = "WHERE id = ".$this->db->escape($additional); 
         }
         $sql = "SELECT * FROM wasama ".$additional;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
+    }
+
+    public function updateTown($postData=null, $action=null) {
+        $results = array();
+        if ($action == "add") {
+            $error = 0;
+            if (!isset($postData["province"]) || empty($postData["province"])) { 
+                $error = 2;
+            } else { 
+                $province = $this->db->escape(strip_tags($postData["province"]));
+            }
+
+            if (!isset($postData["district"]) || empty($postData["district"])) { 
+                $error = 2;
+            } else { 
+                $district = $this->db->escape(strip_tags($postData["district"]));
+            }
+
+            if (!isset($postData["divi_secretariat"]) || empty($postData["divi_secretariat"])) { 
+                $error = 2;
+            } else { 
+                $divi_secretariat = $this->db->escape(strip_tags($postData["divi_secretariat"]));
+            }
+
+            if (!isset($postData["divition"]) || empty($postData["divition"])) { 
+                $error = 2;
+            } else { 
+                $divition = $this->db->escape(strip_tags($postData["divition"]));
+            }
+
+            if (!isset($postData["town"]) || empty($postData["town"])) { 
+                $error = 2;
+            } else { 
+                $town = $this->db->escape(strip_tags($postData["town"]));
+                $townID = $this->db->escape(strip_tags($postData["id"]));
+            }
+
+            if ($error == 2) { 
+                return $error; 
+            }
+
+            $sql = "SELECT * FROM town WHERE district = ".$district." AND province = ".$province." AND kottashaya = ".$divi_secretariat." AND wasama = ".$divition." AND name = ".$town;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 3;
+            } else {
+                $sql2 = "INSERT INTO town (id,name,wasama,kottashaya,district,province) VALUES (".$townID.",".$town.",".$divition.",".$divi_secretariat.",".$district.",".$province.")";
+                $this->db->query($sql2);
+                return 1;
+            }
+        }
+        if ($action == "edit") {
+            $error = 0;
+            if (!isset($postData["province"]) || empty($postData["province"])) { 
+                $error = 2;
+            } else { 
+                $province = $this->db->escape(strip_tags($postData["province"]));
+            }
+
+            if (!isset($postData["district"]) || empty($postData["district"])) { 
+                $error = 2;
+            } else { 
+                $district = $this->db->escape(strip_tags($postData["district"]));
+            }
+
+            if (!isset($postData["divi_secretariat"]) || empty($postData["divi_secretariat"])) { 
+                $error = 2;
+            } else { 
+                $divi_secretariat = $this->db->escape(strip_tags($postData["divi_secretariat"]));
+            }
+
+            if (!isset($postData["divition"]) || empty($postData["divition"])) { 
+                $error = 2;
+            } else { 
+                $divition = $this->db->escape(strip_tags($postData["divition"]));
+            }
+
+            if (!isset($postData["town"]) || empty($postData["town"])) { 
+                $error = 2;
+            } else { 
+                $town = $this->db->escape(strip_tags($postData["town"]));
+            }
+
+            if (!isset($postData["id"]) || empty($postData["id"])) { 
+                $error = 2;
+            } else { 
+                $townID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM town WHERE district = ".$district." AND province = ".$province." AND kottashaya = ".$divi_secretariat." AND wasama = ".$divition." AND name = ".$town;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 4;
+            } else {
+                $sql2 = "UPDATE town SET name = ".$town." , wasama = ".$divition." , kottashaya = ".$divi_secretariat." , district = ".$district." , province = ".$province." WHERE id = ".$townID;
+                $this->db->query($sql2);
+                return 5;
+            }
+        }
+        if ($action == "delete") {
+            $townID = $this->db->escape(strip_tags((int)$postData["id"]));
+            $sql = "DELETE FROM town WHERE id = ".$townID;
+            $query = $this->db->query($sql);
+            $this->db->query($sql);
+            return 7;
+        }
+    }
+
+    public function getTownFormID($additional="") {
+        if ($additional !== "") { 
+            $additional = "WHERE id = ".$this->db->escape($additional); 
+        }
+        $sql = "SELECT * FROM town ".$additional;
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();
