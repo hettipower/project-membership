@@ -173,6 +173,16 @@ class Admin_model extends CI_Model {
         } 
     }
 
+    function getSeats(){
+        $sql = "SELECT * FROM asanaya";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
     function getDistrictsFromProvince($province){
         $sql = "SELECT * FROM `districts` WHERE `province` = '$province' ";
         $query = $this->db->query($sql);
@@ -835,6 +845,62 @@ class Admin_model extends CI_Model {
             return $query->result_array();
         } else {
             return array();
+        }
+    }
+
+    public function updateSeats($postData=null, $action=null) {
+        $results = array();
+        if ($action == "add") {
+            $error = 0;
+            if (!isset($postData["seat"]) || empty($postData["seat"])) { 
+                $error = 2;
+            } else { 
+                $seat = $this->db->escape(strip_tags($postData["seat"]));
+                $seatID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM asanaya WHERE name = ".$seat;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 3;
+            } else {
+                $sql2 = "INSERT INTO asanaya (name,id) VALUES (".$seat.",".$seatID.")";
+                $this->db->query($sql2);
+                return 1;
+            }
+        }
+        if ($action == "edit") {
+            $error = 0;
+            if (!isset($postData["seat"]) || empty($postData["seat"])) { 
+                $error = 2;
+            } else { 
+                $seat = $this->db->escape(strip_tags($postData["seat"]));
+            }
+            if (!isset($postData["id"]) || empty($postData["id"])) { 
+                $error = 2;
+            } else { 
+                $seatID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM asanaya WHERE name = ".$seat;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 4;
+            } else {
+                $sql2 = "UPDATE asanaya SET name = ".$seat." WHERE id = ".$seatID;
+                $this->db->query($sql2);
+                return 5;
+            }
+        }
+        if ($action == "delete") {
+            $seatID = $this->db->escape(strip_tags((int)$postData["id"]));
+            $sql2 = "DELETE FROM asanaya WHERE id = ".$seatID;
+            $this->db->query($sql2);
+            return 7;
         }
     }
 

@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-12">
             <input type="hidden" name="action" value="add">
             <input type="hidden" name="id" value="<?php echo count($kottasha)+1; ?>">
-            <input type="submit" class="btn btn-primary pull-right" value="Add New District">
+            <input type="submit" class="btn btn-primary pull-right" value="Add New">
         </div>
     </div>
 </form>

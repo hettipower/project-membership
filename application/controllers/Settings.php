@@ -343,18 +343,60 @@ class Settings extends CI_Controller {
 		echo json_encode($results);
 	}
 
-	public function get_cities_relatedto_district(){
-		$results = array();
-		$district = $this->input->post('district');
-		$cities = $this->Admin_model->getCitiesFromDistrict($district);
-		if( !empty($cities) ){
-			$results['status'] = true;
-			$results['content'] = $cities;
-		}else{
-			$results['status'] = false;
+	public function seats($page=null, $seatID=0) {
+		if ($this->Admin_model->verifyUser()) {
+			$this->session->set_flashdata('' , '');
+			if ($this->input->post()){
+				$postData = $this->input->post();
+				$responce = $this->Admin_model->updateSeats($postData, $postData["action"]);
+				switch ($responce) {
+					case '1':
+						$this->session->set_flashdata('success', "Successfully added Seat / Division.");
+						break;
+					case '2':
+						$this->session->set_flashdata('error', "Please Fill Fields.");
+						break;
+					case '3':
+						$this->session->set_flashdata('error', "Already Added this Seat / Division.");
+						break;
+					case '4':
+						$this->session->set_flashdata('error', "Need to update field.");
+						break;
+					case '5':
+						$this->session->set_flashdata('success', "Successfully edited Seat / Division.");
+						break;
+					case '6':
+						$this->session->set_flashdata('error', "Please remove Seat / Division first.");
+						break;
+					case '7':
+						$this->session->set_flashdata('success', "Successfully removed Seat / Division.");
+						break;
+					default:
+						$this->session->set_flashdata('error', "Something went wrong.");
+						break;
+				}
+			}
+			if ($page == "add") {
+				$data["seats"] = $this->Admin_model->getSeats();
+				$this->load->view('header');
+				$this->load->view('settings/seat_add' , $data);
+				$this->load->view('footer');
+			} elseif ($page == "edit") {
+				$data["provinces"] = $this->Admin_model->getProvinces();
+				$data["districts"] = $this->Admin_model->getDistricts();
+				$data["kottasha"] = $this->Admin_model->getKottashaya();
+				$data["gn_divisions"] = $this->Admin_model->getGNDivitions();
+				$data["result"] = $this->Admin_model->getTownFormID($seatID);
+				$this->load->view('header');
+				$this->load->view('settings/seat_edit', $data);
+				$this->load->view('footer');
+			} else {
+				$data["seats"] = $this->Admin_model->getSeats();
+				$this->load->view('header');
+				$this->load->view('settings/seat', $data);
+				$this->load->view('footer');
+			} 
 		}
-		echo json_encode($results);
 	}
-	
 
 }

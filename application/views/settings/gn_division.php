@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Example Tables Card -->
 <div class="card mb-3">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <span>Districts</span>
+        <span>GN Divisions</span>
         <a href="<?=base_url()?>settings/gn_division/add" class="btn btn-primary">Add New</a>
     </div>
     <div class="card-block">

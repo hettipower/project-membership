@@ -67,4 +67,17 @@ class Users extends CI_Controller {
 		}
 	}
 
+	public function get_cities_relatedto_district(){
+		$results = array();
+		$district = $this->input->post('district');
+		$cities = $this->Admin_model->getCitiesFromDistrict($district);
+		if( !empty($cities) ){
+			$results['status'] = true;
+			$results['content'] = $cities;
+		}else{
+			$results['status'] = false;
+		}
+		echo json_encode($results);
+	}
+
 }
