@@ -16,7 +16,7 @@ body.fixed-nav {
   background: white; }
   @media (min-width: 992px) {
     .content-wrapper {
-      margin-left: 250px;height: 94vh; } }
+      margin-left: 250px;min-height: 94vh; } }
 
 .scroll-to-top {
   line-height: 45px;

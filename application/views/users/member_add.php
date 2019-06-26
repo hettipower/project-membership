@@ -1,15 +1,12 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
-    <li class="breadcrumb-item">Settings</li>
-    <li class="breadcrumb-item"><a href="<?=base_url()?>settings/admins">Members</a></li>
+    <li class="breadcrumb-item"><a href="<?=base_url()?>users/members">Members</a></li>
     <li class="breadcrumb-item active">Add Member</li>
 </ol>
 
-<form method="POST" action="<?=base_url()?>settings/admins">
-  <input type="hidden" name="action" value="add">
+<form method="POST" action="<?=base_url()?>users/members">
+  
   <div class="form-group row">
     <label for="username" class="col-2 col-form-label">Username</label>
     <div class="col-10">
@@ -137,7 +134,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
   <div class="form-group row">
-    <label for="other" class="col-2 col-form-label">අන්තර් පුද්ගල මානව හැකියාවන්</label>
+    <label for="other" class="col-2 col-form-label">Interpersonal Human Skills</label>
     <div class="col-10">
       <textarea name="other" id="other" class="form-control"></textarea>
     </div>
@@ -154,38 +151,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div> 
   <div class="form-group row"> 
-    <div class="col-10">
-      <input type="submit" class="btn btn-primary">
+    <div class="col-12">
+    <input type="hidden" name="action" value="add">
+      <input type="submit" class="btn btn-primary pull-right" value="Add Member">
     </div>
   </div>
 </form>
-<script>
-  jQuery(document).ready(function($) {   
-
-    $('#district').on('change', function () {
-      var district = $(this).val();
-      $('#town').html('').attr('disabled', 'disabled');
-      $.ajax({
-        url: '<?=base_url()?>Settings/get_cities_relatedto_district',
-        type: 'POST',
-        data: {
-          district: district
-        },
-        dataType: 'json',
-        success: function(results) {
-          //console.log(results);
-          if( results.status === true ){
-            $('#town').html('<option value="">Select Town</option>');
-            $.each(results.content, function (indexInArray, valueOfElement) { 
-              //console.log(valueOfElement.citiy);
-              $('#town').append('<option value="'+valueOfElement.citiy+'">'+valueOfElement.citiy+'</option>');
-            });
-            $('#town').removeAttr('disabled');
-          }
-        }
-      });
-    });
-
-
-  });
-</script>

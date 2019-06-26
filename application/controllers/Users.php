@@ -10,7 +10,7 @@ class Users extends CI_Controller {
 		} 
     }
 
-    public function admins($page=null, $adminid=0) {
+    public function members($page=null, $adminid=0) {
 		if ($this->Admin_model->verifyUser()) {
 			if ($this->input->post()){
 				$postData = $this->input->post();
@@ -18,26 +18,24 @@ class Users extends CI_Controller {
 			}
 			if ($page == "add") {
 				$data["admin_groups"] = $this->Admin_model->getAdminGroups();
-				$data["page"] = $page;
 				$data["provinces"] = $this->Admin_model->getProvinces();
 				$data["districts"] = $this->Admin_model->getDistricts();
 				$this->load->view('header' , $data);
-				$this->load->view('users/admins_add', $data);
+				$this->load->view('users/member_add', $data);
 				$this->load->view('footer');
 			} elseif ($page == "edit") {
 				if ($adminid == null) { redirect(base_url(), 'auto'); }
 				$data["admin_groups"] = $this->Admin_model->getAdminGroups();
 				$data["result"] = $this->Admin_model->getAdminInfo($adminid);
-				$data["page"] = $page;
 				$data["provinces"] = $this->Admin_model->getProvinces();
 				$data["districts"] = $this->Admin_model->getDistricts();
 				$this->load->view('header');
-				$this->load->view('users/admins_edit', $data);
+				$this->load->view('users/member_edit', $data);
 				$this->load->view('footer');
 			} else {
 				$data["admins"] = $this->Admin_model->getAdmins();
 				$this->load->view('header');
-				$this->load->view('users/admins', $data);
+				$this->load->view('users/members', $data);
 				$this->load->view('footer');
 			} 	
 		}

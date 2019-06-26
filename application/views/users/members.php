@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Breadcrumbs -->
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
-    <li class="breadcrumb-item">Settings</li>
     <li class="breadcrumb-item active">Members</li>
 </ol>
 
@@ -13,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="card mb-3">
     <div class="card-header d-flex justify-content-between align-items-center">
         <span><i class="fa fa-users"></i> Members</span>
-        <a href="<?=base_url()?>settings/admins/add" class="btn btn-primary">Add New</a>
+        <a href="<?=base_url()?>users/members/add" class="btn btn-primary">Add New</a>
     </div>
     <div class="card-block">
         <div class="table-responsive">
@@ -85,7 +84,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <td><?= ( isset($v["political_institute"]) && !empty($v["political_institute"]) ) ? $v["political_institute"] : '-' ; ?></td>
                         <td><?= ( isset($v["candidate"]) && !empty($v["candidate"]) ) ? $v["candidate"] : '-' ; ?></td>
                         <td><?= ( isset($v["other"]) && !empty($v["other"]) ) ? $v["other"] : '-' ; ?></td>
-                        <td><form method="POST" action="" style="display:inline;"><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?=$v["id"]?>"><input type="submit" class="btn btn-primary" value="Delete"></form> <a href="<?=base_url()?>settings/admins/edit/<?=$v["id"]?>"><button class="btn btn-primary">Edit</button></a> </td>
+                        <td>
+                            <form method="POST" action="" style="display:inline;">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" value="<?=$v["id"]?>">
+                                <input type="submit" class="btn btn-primary" value="Delete">
+                            </form>
+                            <a href="<?=base_url()?>users/members/edit/<?=$v["id"]?>" class="btn btn-primary">Edit</a>
+                        </td>
                     </tr>
                 <?php } ?> 
                 </tbody>
