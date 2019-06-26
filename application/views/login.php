@@ -27,12 +27,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom styles for this template -->
     <link href="<?=base_url()?>resources/css/sb-admin.css" rel="stylesheet">
     <style>
-    h2 {color: white; }
+    h2 {color: #000; }
     p {color: red;}
+    .form-signin {
+        background-color: #fff;
+        padding: 1rem;
+        width: 75%;
+        margin:auto;
+    }
+    body {
+        height: 80vh;
+    }
     </style>
 </head>
 
-<body>
+<body class="d-flex justify-content-between align-items-center">
  <div class="container">
 
       <form class="form-signin" action="<?=base_url()?>login" method="POST">
@@ -41,9 +50,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if ($error == 1) { echo "Too Many Login Attempts"; }
             if ($error == 2) { echo "Invalid Login Credentials."; }
         ?></p> 
-        <input type="username" name="username" class="form-control" placeholder="Username" required autofocus> 
-        <input type="password" name="password" class="form-control" placeholder="Password" required> 
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in">
+        <div class="form-group">
+          <input type="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" class="form-control" placeholder="Password" required>
+        </div> 
+        <div class="form-group">
+          <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in">
+        </div> 
       </form>
 
     </div> <!-- /container -->
