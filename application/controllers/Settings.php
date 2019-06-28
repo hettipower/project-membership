@@ -284,8 +284,8 @@ class Settings extends CI_Controller {
 				}
 			}
 			if ($page == "add") {
-				$data["districts"] = $this->Admin_model->getDistricts();
 				$data["provinces"] = $this->Admin_model->getProvinces();
+				$data["districts"] = $this->Admin_model->getDistricts();
 				$data["kottasha"] = $this->Admin_model->getKottashaya();				
 				$data["gn_divisions"] = $this->Admin_model->getGNDivitions();
 				$data["towns"] = $this->Admin_model->getTowns();

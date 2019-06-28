@@ -54,6 +54,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li><a href="<?=base_url()?>settings/gn_division">GN Divisions</a></li>
                         <li><a href="<?=base_url()?>settings/towns">Towns</a></li>
                         <li><a href="<?=base_url()?>settings/seats">Seats / Divisions</a></li>
+                        <li><a href="<?=base_url()?>other/schools">Schools</a></li>
+                        <li><a href="<?=base_url()?>other/institutes">Institutes</a></li>
+                        <li><a href="<?=base_url()?>other/jobs">Jobs</a></li>
+                        <li><a href="<?=base_url()?>other/offices">Offices</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
