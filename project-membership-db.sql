@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2019 at 10:12 AM
+-- Generation Time: Jun 28, 2019 at 05:13 AM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -80,6 +80,28 @@ INSERT INTO `districts` (`id`, `district`, `province`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `institutes`
+--
+
+CREATE TABLE `institutes` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kottashaya`
 --
 
@@ -96,6 +118,17 @@ CREATE TABLE `kottashaya` (
 
 INSERT INTO `kottashaya` (`id`, `name`, `district`, `province`) VALUES
 (1, 'Homagama', 1, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `offices`
+--
+
+CREATE TABLE `offices` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -122,6 +155,24 @@ INSERT INTO `provinces` (`id`, `province`) VALUES
 (7, 'Southern'),
 (8, 'Uva'),
 (9, 'Western');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schools`
+--
+
+CREATE TABLE `schools` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `schools`
+--
+
+INSERT INTO `schools` (`id`, `name`) VALUES
+(1, 'Lumbini Collage Colombo 05');
 
 -- --------------------------------------------------------
 
@@ -231,15 +282,39 @@ ALTER TABLE `districts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `institutes`
+--
+ALTER TABLE `institutes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `kottashaya`
 --
 ALTER TABLE `kottashaya`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `offices`
+--
+ALTER TABLE `offices`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `provinces`
 --
 ALTER TABLE `provinces`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `schools`
+--
+ALTER TABLE `schools`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -283,16 +358,40 @@ ALTER TABLE `districts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `institutes`
+--
+ALTER TABLE `institutes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `kottashaya`
 --
 ALTER TABLE `kottashaya`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `offices`
+--
+ALTER TABLE `offices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `provinces`
 --
 ALTER TABLE `provinces`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `schools`
+--
+ALTER TABLE `schools`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `town`
