@@ -255,7 +255,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="col-12">
       <input type="hidden" name="action" value="add">
       <input type="hidden" name="id" value="<?php echo $result->id; ?>">
-      <input type="submit" class="btn btn-primary pull-right" value="Add Member">
+      <input type="submit" class="btn btn-primary pull-right" value="Edit Member">
     </div>
   </div>
 

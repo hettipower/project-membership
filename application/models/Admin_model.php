@@ -47,47 +47,64 @@ class Admin_model extends CI_Model {
     }
 
     public function updateGroups($postData=null, $action=null) {
-            if ($action == "add") {
-                $error = 0;
-                if (!isset($postData["name"]) || empty($postData["name"])) { $error = 2;} else { $name = $this->db->escape(strip_tags($postData["name"]));}
-                if ($error == 2) { return $error; }
-                $sql = "SELECT * FROM admin_groups WHERE name = ".$name;
-                $query = $this->db->query($sql);
-                if ($query->num_rows() > 0) {
-                    return 3;
-                } else {
-                    $sql2 = "INSERT INTO admin_groups (name) VALUES (".$name.")";
-                    $this->db->query($sql2);
-                    return TRUE;
-                }
+        if ($action == "add") {
+            $error = 0;
+            if (!isset($postData["group_name"]) || empty($postData["group_name"])) { 
+                $error = 2;
+            } else { 
+                $group_name = $this->db->escape(strip_tags($postData["group_name"]));
+                $groupID = $this->db->escape(strip_tags($postData["id"]));
             }
-            if ($action == "edit") {
-                $error = 0;
-                if (!isset($postData["name"]) || empty($postData["name"])) { $error = 2;} else { $name = $this->db->escape(strip_tags($postData["name"]));}
-                if (!isset($postData["id"]) || empty($postData["id"])) { $error = 3;} else { $id = $this->db->escape(strip_tags($postData["id"]));}
-                if ($error == 2) { return $error; }
-                $sql = "SELECT * FROM admin_groups WHERE name = ".$name;
-                $query = $this->db->query($sql);
-                if ($query->num_rows() > 0) {
-                    return 4;
-                } else {
-                    $sql2 = "UPDATE admin_groups SET name = ".$name." WHERE id = ".$id;
-                    $this->db->query($sql2);
-                    return TRUE;
-                }
+            if ($error == 2) {
+                return $error; 
             }
-            if ($action == "delete") {
-                $admin_group = $this->db->escape(strip_tags((int)$postData["id"]));
-                $sql = "SELECT * FROM users WHERE admin_group = ".$admin_group;
-                $query = $this->db->query($sql);
-                if ($query->num_rows() > 0) {
-                    return FALSE;
-                } else {
-                    $sql2 = "DELETE FROM admin_groups WHERE id = ".$admin_group;
-                    $this->db->query($sql2);
-                    return TRUE;
-                }
+            $sql = "SELECT * FROM admin_groups WHERE name = ".$group_name;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 3;
+            } else {
+                $sql2 = "INSERT INTO admin_groups (id,name) VALUES (".$groupID.",".$group_name.")";
+                $this->db->query($sql2);
+                return 1;
             }
+        }
+        if ($action == "edit") {
+            $error = 0;
+            if (!isset($postData["group_name"]) || empty($postData["group_name"])) { 
+                $error = 2;
+            } else { 
+                $group_name = $this->db->escape(strip_tags($postData["group_name"]));
+            }
+            if (!isset($postData["id"]) || empty($postData["id"])) { 
+                $error = 2;
+            } else { 
+                $groupID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM admin_groups WHERE name = ".$group_name;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 4;
+            } else {
+                $sql2 = "UPDATE admin_groups SET name = ".$group_name." WHERE id = ".$groupID;
+                $this->db->query($sql2);
+                return 5;
+            }
+        }
+        if ($action == "delete") {
+            $groupID = $this->db->escape(strip_tags((int)$postData["id"]));
+            $sql = "SELECT * FROM users WHERE admin_group = ".$groupID;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 6;
+            } else {
+                $sql2 = "DELETE FROM admin_groups WHERE id = ".$groupID;
+                $this->db->query($sql2);
+                return 7;
+            }
+        }
     }
     
     public function getAdminGroups($additional="") {

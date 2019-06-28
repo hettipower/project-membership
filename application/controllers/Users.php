@@ -105,11 +105,38 @@ class Users extends CI_Controller {
 		if ($this->Admin_model->verifyUser()) {
 			if ($this->input->post()){
 				$postData = $this->input->post();
-				$this->Admin_model->updateGroups($postData, $postData["action"]);
+				$responce = $this->Admin_model->updateGroups($postData, $postData["action"]);
+				switch ($responce) {
+					case '1':
+						$this->session->set_flashdata('success', "Successfully added Admin Group.");
+						break;
+					case '2':
+						$this->session->set_flashdata('error', "Please Fill Fields.");
+						break;
+					case '3':
+						$this->session->set_flashdata('error', "Group exists with this name.");
+						break;
+					case '4':
+						$this->session->set_flashdata('error', "Need to update Field.");
+						break;
+					case '5':
+						$this->session->set_flashdata('success', "Successfully updated Admin Group.");
+						break;
+					case '6':
+						$this->session->set_flashdata('error', "You Need to remove Members first.");
+						break;
+					case '7':
+						$this->session->set_flashdata('success', "Successfully deleted Admin Group.");
+						break;
+					default:
+						$this->session->set_flashdata('error', "Something went wrong.");
+						break;
+				}
 			}
 			if ($page == "add") {
+				$data["groups"] = $this->Admin_model->getAdminGroups();
 				$this->load->view('header');
-				$this->load->view('users/admingroups_add');
+				$this->load->view('users/admingroups_add', $data);
 				$this->load->view('footer');
 			} elseif ($page == "edit") {
 				$data["result"] = $this->Admin_model->getAdminGroups($groupid);
