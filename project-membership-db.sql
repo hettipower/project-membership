@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2019 at 05:13 AM
+-- Generation Time: Jun 28, 2019 at 08:28 AM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -38,7 +38,8 @@ CREATE TABLE `admin_groups` (
 --
 
 INSERT INTO `admin_groups` (`id`, `name`) VALUES
-(1, 'Administrator');
+(1, 'Administrator'),
+(2, 'Members');
 
 -- --------------------------------------------------------
 
@@ -88,6 +89,13 @@ CREATE TABLE `institutes` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `institutes`
+--
+
+INSERT INTO `institutes` (`id`, `name`) VALUES
+(1, 'Colombo Campus');
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +106,13 @@ CREATE TABLE `jobs` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`id`, `name`) VALUES
+(1, 'Software Developer');
 
 -- --------------------------------------------------------
 
@@ -129,6 +144,13 @@ CREATE TABLE `offices` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `offices`
+--
+
+INSERT INTO `offices` (`id`, `name`) VALUES
+(1, 'Maya.lk');
 
 -- --------------------------------------------------------
 
@@ -236,7 +258,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `last_signin`, `created_date`, `ip`, `verification_key`, `admin_group`, `name`, `nic`, `address`, `province`, `district`, `kottashaya`, `wasama`, `town`, `asanaya`, `contact_no`, `school`, `institute`, `job`, `office`, `political_institute`, `candidate`, `other`) VALUES
-(1, 'admin', 'a1fa99a1724242d0931d4f9c62dd56a6', 'hettipower@gmail.com', 2147483647, 123132121, '::1', 'dfasdfa3a33a', 1, 'Tharindu Hettiarachchi', '912970043V', '', 1, 1, 1, 1, 1, 1, '0718892819', 1, 1, 1, 1, NULL, NULL, NULL);
+(1, 'admin', 'a1fa99a1724242d0931d4f9c62dd56a6', 'hettipower@gmail.com', 2147483647, 123132121, '::1', 'dfasdfa3a33a', 1, 'Tharindu Hettiarachchi', '912970043V', '', 1, 1, 1, 1, 1, 1, '0718892819', 1, 1, 1, 1, NULL, NULL, NULL),
+(2, 'admin2', '5e7602269f177f0d3b57a27627a17e22', 'sdsd@asdas.com', NULL, 1561699172, NULL, 'moZp8qxMpC', 1, 'Test User', '9548554458455V', 'asd', 9, 1, 1, 1, 1, 1, '2112312', 1, 1, 1, 1, 'Political Institute', 'Candidate', 'xzz');
 
 -- --------------------------------------------------------
 
@@ -343,7 +366,7 @@ ALTER TABLE `wasama`
 -- AUTO_INCREMENT for table `admin_groups`
 --
 ALTER TABLE `admin_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `asanaya`
@@ -403,7 +426,7 @@ ALTER TABLE `town`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `wasama`
