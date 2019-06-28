@@ -8,6 +8,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <li class="breadcrumb-item active">Members</li>
 </ol>
 
+<?php if( $this->session->flashdata('success') ): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $this->session->flashdata('success'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php endif; ?>
+<?php if( $this->session->flashdata('error') ): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $this->session->flashdata('error'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php endif; ?>
+
 <!-- Example Tables Card -->
 <div class="card mb-3">
     <div class="card-header d-flex justify-content-between align-items-center">

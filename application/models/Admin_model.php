@@ -264,35 +264,59 @@ class Admin_model extends CI_Model {
     }
 
     public function updateAdmins($postData=null, $action=null) {
-            if ($action == "add") {
-                    $error = 0;
-                    if (!isset($postData["username"]) || empty($postData["username"])) { $error = 2;} else { $username = $this->db->escape(strip_tags($postData["username"]));}
-                    if (!isset($postData["password"]) || empty($postData["password"])) { $error = 3;} else { $password = strip_tags($postData["password"]);}
-                    if (!isset($postData["password2"]) || empty($postData["password2"])) { $error = 4;} else { $password2 = strip_tags($postData["password2"]);}
-                    if (!isset($postData["email"]) || empty($postData["email"])) { $error = 5;} else { $email = $this->db->escape(strip_tags($postData["email"]));}
-                    if (!isset($postData["name"]) || empty($postData["name"])) { $error = 6;} else { $name = $this->db->escape(strip_tags($postData["name"]));}
-                    if (!isset($postData["admin_group"]) || empty($postData["admin_group"])) { $error = 7;} else { $admin_group = $this->db->escape(strip_tags($postData["admin_group"]));} 
-                    if (!isset($postData["address"]) || empty($postData["address"])) { $address = "''";} else { $address = $this->db->escape(strip_tags($postData["address"]));} 
-                    if (!isset($postData["address2"]) || empty($postData["address2"])) { $address2 = "''";} else { $address2 = $this->db->escape(strip_tags($postData["address2"]));} 
-                    if (!isset($postData["city"]) || empty($postData["city"])) { $city = "''";} else { $city = $this->db->escape(strip_tags($postData["city"]));} 
-                    if (!isset($postData["state"]) || empty($postData["state"])) { $state = "''";} else { $state = $this->db->escape(strip_tags($postData["state"]));} 
-                    if (!isset($postData["zip"]) || empty($postData["zip"])) { $zip = "''";} else { $zip = $this->db->escape(strip_tags($postData["zip"]));}   
-                    $verification_key = $this->db->escape($this->generateVerificationKey());
-                    $salt = $this->generateSalt();
-                    if ($password !== $password2) { $error = 8; } else { $password = $this->db->escape(md5($salt.$password)); }
-                    if ($error > 0) { return $error; }
-                    $now = $this->db->escape(time());
-                    $sql = "SELECT * FROM users WHERE username = ".$username;
-                    $query = $this->db->query($sql);
-                    if ($query->num_rows() > 0) {
-                            return 9;
-                    } else {
-                            $sql2 = "INSERT INTO users (username,password,email,created_date,verification_key,admin_group,name,address,address2,city,state,zip) VALUES ($username, $password, $email, $now, $verification_key, $admin_group, $name, $address, $address2, $city, $state, $zip)";
-                            $this->db->query($sql2);
-                            return TRUE;   
-                    }
-                    
+        if ($action == "add") {
+
+            $username = (isset($postData["username"])) ? $postData["username"] : '' ;
+            $password = (isset($postData["password"])) ? $postData["password"] : '' ;
+            $password_con = (isset($postData["password_con"])) ? $postData["password_con"] : '' ;
+            $email = (isset($postData["email"])) ? $postData["email"] : '' ;
+            $fname = (isset($postData["fname"])) ? $postData["fname"] : '' ;
+            $address = (isset($postData["address"])) ? $postData["address"] : '' ;
+            $contact_no = (isset($postData["contact_no"])) ? $postData["contact_no"] : '' ;
+            $nic = (isset($postData["nic"])) ? $postData["nic"] : '' ;
+            $province = (isset($postData["province"])) ? $postData["province"] : '' ;
+            $district = (isset($postData["district"])) ? $postData["district"] : '' ;
+            $divi_secretariat = (isset($postData["divi_secretariat"])) ? $postData["divi_secretariat"] : '' ;
+            $divition = (isset($postData["divition"])) ? $postData["divition"] : '' ;
+            $town = (isset($postData["town"])) ? $postData["town"] : '' ;
+            $seat = (isset($postData["seat"])) ? $postData["seat"] : '' ;
+            $school = (isset($postData["school"])) ? $postData["school"] : '' ;
+            $institute = (isset($postData["institute"])) ? $postData["institute"] : '' ;
+            $job = (isset($postData["job"])) ? $postData["job"] : '' ;
+            $office = (isset($postData["office"])) ? $postData["office"] : '' ;
+            $political_institute = (isset($postData["political_institute"])) ? $postData["political_institute"] : '' ;
+            $candidate = (isset($postData["candidate"])) ? $postData["candidate"] : '' ;
+            $other = (isset($postData["other"])) ? $postData["other"] : '' ;
+            $admin_group = (isset($postData["admin_group"])) ? $postData["admin_group"] : '' ;
+            $userID = (isset($postData["id"])) ? $postData["id"] : '' ;
+
+            if( empty($username) || empty($password) || empty($password_con) || empty($email) || empty($fname) || empty($address) || empty($contact_no) || empty($nic) || empty($province) || empty($district) || empty($divi_secretariat) || empty($divition) || empty($town) || empty($seat) || empty($school) || empty($institute) || empty($job) || empty($office) || empty($political_institute) || empty($candidate) || empty($other) || empty($admin_group) || empty($userID) ){
+                return 2;
+            }else{
+                $verification_key = $this->db->escape($this->generateVerificationKey());
+                $salt = $this->generateSalt();
+                if ($password !== $password_con) { 
+                    return 3; 
+                } else { 
+                    $saltPassword = $this->db->escape(md5($salt.$password)); 
+                }
+
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    return 4;
+                }
+
+                $now = $this->db->escape(time());
+                $sql = "SELECT * FROM `users` WHERE `username` = '".$username."'";
+                $query = $this->db->query($sql);
+                if ($query->num_rows() > 0) {
+                    return 5;
+                } else {
+                    $sql2 = "INSERT INTO users (id, username, password, email, created_date, verification_key, admin_group, name, nic, address,province, district, kottashaya, wasama, town, asanaya, contact_no, school, institute, job, office, political_institute, candidate, other) VALUES ($userID, '$username', $saltPassword, '$email', $now, $verification_key, $admin_group, '$fname', '$nic', '$address', $province, $district, $divi_secretariat, $divition, $town , $seat, '$contact_no', $school, $institute, $job, $office, '$political_institute', '$candidate', '$other')";
+                    $this->db->query($sql2);
+                    return 1;
+                }
             }
+        }
             if ($action == "edit") {
                     $error = 0; 
                     if (!isset($postData["username"]) || empty($postData["username"])) { $username = ""; } else { $username = $this->db->escape(strip_tags($postData["username"]));}

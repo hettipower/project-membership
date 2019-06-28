@@ -23,13 +23,13 @@ class Users extends CI_Controller {
 						$this->session->set_flashdata('error', "Please Fill Fields.");
 						break;
 					case '3':
-						$this->session->set_flashdata('error', "Already Added this Member.");
+						$this->session->set_flashdata('error', "The two passwords you entered don't match.");
 						break;
 					case '4':
-						$this->session->set_flashdata('error', "Need to update field.");
+						$this->session->set_flashdata('error', "The email address you entered is not valid.");
 						break;
 					case '5':
-						$this->session->set_flashdata('success', "Successfully edited Member.");
+						$this->session->set_flashdata('error', "An account exists with this Username.");
 						break;
 					case '6':
 						$this->session->set_flashdata('error', "Please remove Member first.");

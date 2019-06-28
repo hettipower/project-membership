@@ -22,9 +22,9 @@
   </div>
 
   <div class="form-group row">
-    <label for="password2" class="col-2 col-form-label">Password Verify</label>
+    <label for="password_con" class="col-2 col-form-label">Confirm Password</label>
     <div class="col-10">
-      <input class="form-control" type="password" value="" name="password2" id="password2" required>
+      <input class="form-control" type="password" value="" name="password_con" id="password_con" required>
     </div>
   </div>
 
@@ -46,6 +46,13 @@
     <label for="address" class="col-2 col-form-label">Address</label>
     <div class="col-10">
       <textarea name="address" id="address" class="form-control" required></textarea>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="contact_no" class="col-2 col-form-label">Contact Number</label>
+    <div class="col-10">
+      <input class="form-control" type="text" value="" name="contact_no" id="contact_no" required>
     </div>
   </div>
 
@@ -119,13 +126,6 @@
           <option value="<?= $seat['id']; ?>"><?= $seat['name']; ?></option>
         <?php endforeach; endif; ?>
       </select>
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="contact_no" class="col-2 col-form-label">Contact Number</label>
-    <div class="col-10">
-      <input class="form-control" type="text" value="" name="contact_no" id="contact_no" required>
     </div>
   </div>
 
@@ -211,9 +211,9 @@
   </div>
 
   <div class="form-group row">
-    <label for="example-text-input" class="col-2 col-form-label">Admin Group</label>
+    <label for="admin_group" class="col-2 col-form-label">Admin Group</label>
     <div class="col-10">
-      <select class="form-control" name="admin_group" required>
+      <select class="form-control" name="admin_group" id="admin_group" required>
         <?php
           foreach ($admin_groups as $v) {
             echo "<option value='".$v["id"]."'>".$v["name"]."</option>";
@@ -226,6 +226,7 @@
   <div class="form-group row"> 
     <div class="col-12">
       <input type="hidden" name="action" value="add">
+      <input type="hidden" name="id" value="<?php echo count($admins)+1; ?>">
       <input type="submit" class="btn btn-primary pull-right" value="Add Member">
     </div>
   </div>
@@ -319,7 +320,7 @@ jQuery(document).ready(function($) {
         var divition = $('#divition').val();
         $('#town').html('<option value="">Select Town</option>').attr('disabled', 'disabled');
         $.ajax({
-            url: '<?=base_url()?>Settings/get_divition_relatedto_province_district_and_kottasha',
+            url: '<?=base_url()?>Users/get_towns_relatedto_divition',
             type: 'POST',
             data: {
                 province: province,
