@@ -114,13 +114,13 @@ class Admin_model extends CI_Model {
     }
 
     public function getAdmins() {
-            $sql = "SELECT * FROM users";
-            $query = $this->db->query($sql);
-            if ($query->num_rows() > 0) {
-                    return $query->result_array();
-            } else {
-                    return array();
-            }
+        $sql = "SELECT * FROM users";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
     }
 
     function getProvinces(){
@@ -213,8 +213,8 @@ class Admin_model extends CI_Model {
         } 
     }
 
-    function getCitiesFromDistrict($district){
-        $sql = "SELECT * FROM `cities` WHERE `district` = '$district' ";
+    function getTownsFromRelated($province,$district,$kottasha,$divition){
+        $sql = "SELECT * FROM town WHERE province = ".$province." AND district = ".$district." AND kottashaya = ".$kottasha." AND wasama = ".$divition;
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();
