@@ -68,22 +68,22 @@ class Other extends CI_Controller {
 				$responce = $this->Admin_model->updateInstitute($postData, $postData["action"]);
 				switch ($responce) {
 					case '1':
-						$this->session->set_flashdata('success', "Successfully added School.");
+						$this->session->set_flashdata('success', "Successfully added Institute.");
 						break;
 					case '2':
 						$this->session->set_flashdata('error', "Please Fill Fields.");
 						break;
 					case '3':
-						$this->session->set_flashdata('error', "Already Added this School.");
+						$this->session->set_flashdata('error', "Already Added this Institute.");
 						break;
 					case '4':
 						$this->session->set_flashdata('error', "Need to update field.");
 						break;
 					case '5':
-						$this->session->set_flashdata('success', "Successfully edited School.");
+						$this->session->set_flashdata('success', "Successfully edited Institute.");
 						break;
 					case '7':
-						$this->session->set_flashdata('success', "Successfully removed School.");
+						$this->session->set_flashdata('success', "Successfully removed Institute.");
 						break;
 					default:
 						$this->session->set_flashdata('error', "Something went wrong.");
@@ -104,6 +104,104 @@ class Other extends CI_Controller {
 				$data["institutes"] = $this->Admin_model->getInstitutes();
 				$this->load->view('header');
 				$this->load->view('settings/other/institutes', $data);
+				$this->load->view('footer');
+			} 
+		}
+    }
+    
+    public function jobs($page=null, $jobID=0) {
+		if ($this->Admin_model->verifyUser()) {
+			$this->session->set_flashdata('' , '');
+			if ($this->input->post()){
+				$postData = $this->input->post();
+				$responce = $this->Admin_model->updateJob($postData, $postData["action"]);
+				switch ($responce) {
+					case '1':
+						$this->session->set_flashdata('success', "Successfully added Job.");
+						break;
+					case '2':
+						$this->session->set_flashdata('error', "Please Fill Fields.");
+						break;
+					case '3':
+						$this->session->set_flashdata('error', "Already Added this Job.");
+						break;
+					case '4':
+						$this->session->set_flashdata('error', "Need to update field.");
+						break;
+					case '5':
+						$this->session->set_flashdata('success', "Successfully edited Job.");
+						break;
+					case '7':
+						$this->session->set_flashdata('success', "Successfully removed Job.");
+						break;
+					default:
+						$this->session->set_flashdata('error', "Something went wrong.");
+						break;
+				}
+			}
+			if ($page == "add") {
+				$data["jobs"] = $this->Admin_model->getJobs();
+				$this->load->view('header');
+				$this->load->view('settings/other/job_add' , $data);
+				$this->load->view('footer');
+			} elseif ($page == "edit") {
+				$data["result"] = $this->Admin_model->getJobFormID($jobID);
+				$this->load->view('header');
+				$this->load->view('settings/other/job_edit', $data);
+				$this->load->view('footer');
+			} else {
+				$data["jobs"] = $this->Admin_model->getJobs();
+				$this->load->view('header');
+				$this->load->view('settings/other/jobs', $data);
+				$this->load->view('footer');
+			} 
+		}
+    }
+    
+    public function offices($page=null, $officeID=0) {
+		if ($this->Admin_model->verifyUser()) {
+			$this->session->set_flashdata('' , '');
+			if ($this->input->post()){
+				$postData = $this->input->post();
+				$responce = $this->Admin_model->updateOffice($postData, $postData["action"]);
+				switch ($responce) {
+					case '1':
+						$this->session->set_flashdata('success', "Successfully added Office.");
+						break;
+					case '2':
+						$this->session->set_flashdata('error', "Please Fill Fields.");
+						break;
+					case '3':
+						$this->session->set_flashdata('error', "Already Added this Office.");
+						break;
+					case '4':
+						$this->session->set_flashdata('error', "Need to update field.");
+						break;
+					case '5':
+						$this->session->set_flashdata('success', "Successfully edited Office.");
+						break;
+					case '7':
+						$this->session->set_flashdata('success', "Successfully removed Office.");
+						break;
+					default:
+						$this->session->set_flashdata('error', "Something went wrong.");
+						break;
+				}
+			}
+			if ($page == "add") {
+				$data["offices"] = $this->Admin_model->getOffices();
+				$this->load->view('header');
+				$this->load->view('settings/other/office_add' , $data);
+				$this->load->view('footer');
+			} elseif ($page == "edit") {
+				$data["result"] = $this->Admin_model->getOfficeFormID($officeID);
+				$this->load->view('header');
+				$this->load->view('settings/other/office_edit', $data);
+				$this->load->view('footer');
+			} else {
+				$data["offices"] = $this->Admin_model->getOffices();
+				$this->load->view('header');
+				$this->load->view('settings/other/offices', $data);
 				$this->load->view('footer');
 			} 
 		}

@@ -243,6 +243,26 @@ class Admin_model extends CI_Model {
         } 
     }
 
+    function getJobs(){
+        $sql = "SELECT * FROM jobs";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
+    function getOffices(){
+        $sql = "SELECT * FROM offices";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
     public function updateAdmins($postData=null, $action=null) {
             if ($action == "add") {
                     $error = 0;
@@ -1054,6 +1074,144 @@ class Admin_model extends CI_Model {
             $additional = "WHERE id = ".$this->db->escape($additional); 
         }
         $sql = "SELECT * FROM institutes ".$additional;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
+    }
+
+    public function updateJob($postData=null, $action=null) {
+        $results = array();
+        if ($action == "add") {
+            $error = 0;
+            if (!isset($postData["job"]) || empty($postData["job"])) { 
+                $error = 2;
+            } else { 
+                $job = $this->db->escape(strip_tags($postData["job"]));
+                $jobID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM jobs WHERE name = ".$job;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 3;
+            } else {
+                $sql2 = "INSERT INTO jobs (name,id) VALUES (".$job.",".$jobID.")";
+                $this->db->query($sql2);
+                return 1;
+            }
+        }
+        if ($action == "edit") {
+            $error = 0;
+            if (!isset($postData["job"]) || empty($postData["job"])) { 
+                $error = 2;
+            } else { 
+                $job = $this->db->escape(strip_tags($postData["job"]));
+            }
+            if (!isset($postData["id"]) || empty($postData["id"])) { 
+                $error = 2;
+            } else { 
+                $jobID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM jobs WHERE name = ".$job;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 4;
+            } else {
+                $sql2 = "UPDATE jobs SET name = ".$job." WHERE id = ".$jobID;
+                $this->db->query($sql2);
+                return 5;
+            }
+        }
+        if ($action == "delete") {
+            $jobID = $this->db->escape(strip_tags((int)$postData["id"]));
+            $sql2 = "DELETE FROM jobs WHERE id = ".$jobID;
+            $this->db->query($sql2);
+            return 7;
+        }
+    }
+
+    public function getJobFormID($additional="") {
+        if ($additional !== "") { 
+            $additional = "WHERE id = ".$this->db->escape($additional); 
+        }
+        $sql = "SELECT * FROM jobs ".$additional;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
+    }
+
+    public function updateOffice($postData=null, $action=null) {
+        $results = array();
+        if ($action == "add") {
+            $error = 0;
+            if (!isset($postData["office"]) || empty($postData["office"])) { 
+                $error = 2;
+            } else { 
+                $office = $this->db->escape(strip_tags($postData["office"]));
+                $officeID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM offices WHERE name = ".$office;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 3;
+            } else {
+                $sql2 = "INSERT INTO offices (name,id) VALUES (".$office.",".$officeID.")";
+                $this->db->query($sql2);
+                return 1;
+            }
+        }
+        if ($action == "edit") {
+            $error = 0;
+            if (!isset($postData["office"]) || empty($postData["office"])) { 
+                $error = 2;
+            } else { 
+                $office = $this->db->escape(strip_tags($postData["office"]));
+            }
+            if (!isset($postData["id"]) || empty($postData["id"])) { 
+                $error = 2;
+            } else { 
+                $officeID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM offices WHERE name = ".$office;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 4;
+            } else {
+                $sql2 = "UPDATE offices SET name = ".$office." WHERE id = ".$officeID;
+                $this->db->query($sql2);
+                return 5;
+            }
+        }
+        if ($action == "delete") {
+            $officeID = $this->db->escape(strip_tags((int)$postData["id"]));
+            $sql2 = "DELETE FROM offices WHERE id = ".$officeID;
+            $this->db->query($sql2);
+            return 7;
+        }
+    }
+
+    public function getOfficeFormID($additional="") {
+        if ($additional !== "") { 
+            $additional = "WHERE id = ".$this->db->escape($additional); 
+        }
+        $sql = "SELECT * FROM offices ".$additional;
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();
