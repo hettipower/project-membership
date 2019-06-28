@@ -38,14 +38,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="form-group row">
     <label for="password" class="col-2 col-form-label">Password</label>
     <div class="col-10">
-      <input class="form-control" type="password" value="" name="password" id="password" required>
+      <input class="form-control" type="password" value="" name="password" id="password">
     </div>
   </div>
 
   <div class="form-group row">
     <label for="password_con" class="col-2 col-form-label">Confirm Password</label>
     <div class="col-10">
-      <input class="form-control" type="password" value="" name="password_con" id="password_con" required>
+      <input class="form-control" type="password" value="" name="password_con" id="password_con">
     </div>
   </div>
 
@@ -92,8 +92,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php 
           if( is_array($provinces) && !empty(provinces) ):
             foreach( $provinces as $province ):
+              $selected = ( $result->province == $province['id'] ) ? 'selected' : '' ;
         ?>
-          <option value="<?= $province['id']; ?>"><?= $province['province']; ?></option>
+          <option value="<?= $province['id']; ?>" <?= $selected; ?>><?= $province['province']; ?></option>
         <?php endforeach; endif; ?>
       </select>
     </div>

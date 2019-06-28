@@ -317,50 +317,75 @@ class Admin_model extends CI_Model {
                 }
             }
         }
-            if ($action == "edit") {
-                    $error = 0; 
-                    if (!isset($postData["username"]) || empty($postData["username"])) { $username = ""; } else { $username = $this->db->escape(strip_tags($postData["username"]));}
-                    if (!isset($postData["password"]) || empty($postData["password"])) { $pass = 0; } else { $pass = 1; $password = strip_tags($postData["password"]);}
-                    if (!isset($postData["password2"]) || empty($postData["password2"])) { $password2 = "";} else { $password2 = strip_tags($postData["password2"]);}
-                    if (!isset($postData["email"]) || empty($postData["email"])) { $error = 5;} else { $email = $this->db->escape(strip_tags($postData["email"]));}
-                    if (!isset($postData["name"]) || empty($postData["name"])) { $error = 6;} else { $name = $this->db->escape(strip_tags($postData["name"]));}
-                    if (!isset($postData["admin_group"]) || empty($postData["admin_group"])) { $error = 7;} else { $admin_group = $this->db->escape(strip_tags($postData["admin_group"]));} 
-                    if (!isset($postData["address"]) || empty($postData["address"])) { $address = "''";} else { $address = $this->db->escape(strip_tags($postData["address"]));} 
-                    if (!isset($postData["address2"]) || empty($postData["address2"])) { $address2 = "''";} else { $address2 = $this->db->escape(strip_tags($postData["address2"]));} 
-                    if (!isset($postData["city"]) || empty($postData["city"])) { $city = "''";} else { $city = $this->db->escape(strip_tags($postData["city"]));} 
-                    if (!isset($postData["state"]) || empty($postData["state"])) { $state = "''";} else { $state = $this->db->escape(strip_tags($postData["state"]));} 
-                    if (!isset($postData["zip"]) || empty($postData["zip"])) { $zip = "''";} else { $zip = $this->db->escape(strip_tags($postData["zip"]));}   
-                    if ($error > 0) { return $error; }
-                    $sql = "SELECT * FROM users WHERE username = ".$username; 
-                    $query = $this->db->query($sql);
-                    if ($query->num_rows() > 0) {
-                            if ($pass == 0) {
-                                $sql = "UPDATE users SET email = $email, name = $name, admin_group = $admin_group, address = $address, address2 = $address2, city = $city, state = $state, zip = $zip WHERE id = ".$this->db->escape($query->row()->id);
-                                $this->db->query($sql);
-                                return TRUE;
-                            } else {
-                                if ($password !== $password2) { return 8; }
-                                $salt = $this->generateSalt();
-                                $password = $this->db->escape(md5($salt.$password));
-                                $sql = "UPDATE users SET email = $email, name = $name, admin_group = $admin_group, address = $address, address2 = $address2, city = $city, state = $state, zip = $zip, password = $password WHERE id = ".$this->db->escape($query->row()->id);
-                                $this->db->query($sql);
-                                return TRUE;
-                            }   
-                    } else {
-                            return 9;
-                    }
-            }
-            if ($action == "delete") {
-                    $admin_id = $this->db->escape(strip_tags((int)$postData["id"]));
-                    if ((int)$postData["id"] == $this->session->userdata("admin_id")) { 
-                            return FALSE;
-                    } else {
-                        $sql = "DELETE FROM users WHERE id = ".$admin_id;
+        if ($action == "edit") {
+
+            $username = (isset($postData["username"])) ? $postData["username"] : '' ;
+            $password = (isset($postData["password"])) ? $postData["password"] : '' ;
+            $password_con = (isset($postData["password_con"])) ? $postData["password_con"] : '' ;
+            $email = (isset($postData["email"])) ? $postData["email"] : '' ;
+            $fname = (isset($postData["fname"])) ? $postData["fname"] : '' ;
+            $address = (isset($postData["address"])) ? $postData["address"] : '' ;
+            $contact_no = (isset($postData["contact_no"])) ? $postData["contact_no"] : '' ;
+            $nic = (isset($postData["nic"])) ? $postData["nic"] : '' ;
+            $province = (isset($postData["province"])) ? $postData["province"] : '' ;
+            $district = (isset($postData["district"])) ? $postData["district"] : '' ;
+            $divi_secretariat = (isset($postData["divi_secretariat"])) ? $postData["divi_secretariat"] : '' ;
+            $divition = (isset($postData["divition"])) ? $postData["divition"] : '' ;
+            $town = (isset($postData["town"])) ? $postData["town"] : '' ;
+            $seat = (isset($postData["seat"])) ? $postData["seat"] : '' ;
+            $school = (isset($postData["school"])) ? $postData["school"] : '' ;
+            $institute = (isset($postData["institute"])) ? $postData["institute"] : '' ;
+            $job = (isset($postData["job"])) ? $postData["job"] : '' ;
+            $office = (isset($postData["office"])) ? $postData["office"] : '' ;
+            $political_institute = (isset($postData["political_institute"])) ? $postData["political_institute"] : '' ;
+            $candidate = (isset($postData["candidate"])) ? $postData["candidate"] : '' ;
+            $other = (isset($postData["other"])) ? $postData["other"] : '' ;
+            $admin_group = (isset($postData["admin_group"])) ? $postData["admin_group"] : '' ;
+            $userID = (isset($postData["id"])) ? $postData["id"] : '' ;
+
+            if( empty($username) || empty($email) || empty($fname) || empty($address) || empty($contact_no) || empty($nic) || empty($province) || empty($district) || empty($divi_secretariat) || empty($divition) || empty($town) || empty($seat) || empty($school) || empty($institute) || empty($job) || empty($office) || empty($political_institute) || empty($candidate) || empty($other) || empty($admin_group) || empty($userID) ){
+                return 2;
+            }else{
+                if ($password) { 
+                    $pass = 1; 
+                } else { 
+                    $pass = 0; 
+                }
+
+                $sql = "SELECT * FROM `users` WHERE `id` = '".$userID."'"; 
+                $query = $this->db->query($sql);
+                if ($query->num_rows() > 0) {
+                    if ($pass == 0) {
+                        $sql = "UPDATE `users` SET `username`=$username, `email`=$email, `admin_group`=$admin_group, `name`=$fname, `nic`=$nic, `address`=$address, `province`=$province, `district`=$district, `kottashaya`=$divi_secretariat, `wasama`=$divition, `town`=$town, `asanaya`=$seat, `contact_no`=$contact_no, `school`=$school, `institute`=$institute, `job`=$job, `office`=$office, `political_institute`=$political_institute, `candidate`=$candidate, `other`=$other WHERE ".$this->db->escape($userID);
+                        //$sql = "UPDATE users SET email = $email, name = $name, admin_group = $admin_group, address = $address, address2 = $address2, city = $city, state = $state, zip = $zip WHERE id = ".$this->db->escape($query->row()->id);
                         $this->db->query($sql);
-                        return TRUE;     
-                    }
-                    
+                        return 6;
+                    } else {
+                        if ($password !== $password_con) { 
+                            return 3;
+                        }
+                        $salt = $this->generateSalt();
+                        $password = $this->db->escape(md5($salt.$password));
+                        $sql = "UPDATE `users` SET `username`=$username, `password`=$password, `email`=$email, `admin_group`=$admin_group, `name`=$fname, `nic`=$nic, `address`=$address, `province`=$province, `district`=$district, `kottashaya`=$divi_secretariat, `wasama`=$divition, `town`=$town, `asanaya`=$seat, `contact_no`=$contact_no, `school`=$school, `institute`=$institute, `job`=$job, `office`=$office, `political_institute`=$political_institute, `candidate`=$candidate, `other`=$other WHERE ".$this->db->escape($userID);
+                        $this->db->query($sql);
+                        return 6;
+                    }   
+                } else {
+                    return 7;
+                }
+
             }
+        }
+        if ($action == "delete") {
+            $admin_id = $this->db->escape(strip_tags((int)$postData["id"]));
+            if ((int)$postData["id"] == $this->session->userdata("admin_id")) {
+                return 8;
+            } else {
+                $sql = "DELETE FROM users WHERE id = ".$admin_id;
+                $this->db->query($sql);
+                return 9;     
+            }                
+        }
     }
 
     public function adminLogin($postData) {

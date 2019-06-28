@@ -32,10 +32,16 @@ class Users extends CI_Controller {
 						$this->session->set_flashdata('error', "An account exists with this Username.");
 						break;
 					case '6':
-						$this->session->set_flashdata('error', "Please remove Member first.");
+						$this->session->set_flashdata('success', "Successfully updated Member.");
 						break;
 					case '7':
-						$this->session->set_flashdata('success', "Successfully removed Member.");
+						$this->session->set_flashdata('error', "Something went wrong. Please Try Again Later.");
+						break;
+					case '8':
+						$this->session->set_flashdata('error', "You Cannot Delete Login Member.");
+						break;
+					case '9':
+						$this->session->set_flashdata('success', "Successfully deleted Member.");
 						break;
 					default:
 						$this->session->set_flashdata('error', "Something went wrong.");
