@@ -90,7 +90,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <select name="province" id="province" class="select2Single form-control" required>
         <option value="">Select Province</option>
         <?php 
-          if( is_array($provinces) && !empty(provinces) ):
+          if( is_array($provinces) && !empty($provinces) ):
             foreach( $provinces as $province ):
               $selected = ( $result->province == $province['id'] ) ? 'selected' : '' ;
         ?>
@@ -103,8 +103,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="form-group row">
     <label for="district" class="col-2 col-form-label">District</label>
     <div class="col-10">
-      <select name="district" id="district" class="select2Single form-control" required disabled>
+      <select name="district" id="district" class="select2Single form-control" required>
         <option value="">Select District</option>
+        <?php 
+          if( is_array($districts) && !empty($districts) ):
+            foreach( $districts as $district ):
+              $selected = ( $result->district == $district['id'] ) ? 'selected' : '' ;
+        ?>
+          <option value="<?= $district['id']; ?>" <?= $selected; ?>><?= $district['district']; ?></option>
+        <?php endforeach; endif; ?>
       </select>
     </div>
   </div>
@@ -112,8 +119,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="form-group row">
     <label for="divi_secretariat" class="col-2 col-form-label">Divisional Secretariat</label>
     <div class="col-10">
-      <select name="divi_secretariat" id="divi_secretariat" class="select2Single form-control" required disabled>
+      <select name="divi_secretariat" id="divi_secretariat" class="select2Single form-control" required >
         <option value="">Select Divisional Secretariat</option>
+        <?php 
+          if( is_array($kottasha) && !empty($kottasha) ):
+            foreach( $kottasha as $kottashaya ):
+              $selected = ( $result->kottashaya == $kottashaya['id'] ) ? 'selected' : '' ;
+        ?>
+          <option value="<?= $kottashaya['id']; ?>" <?= $selected; ?>><?= $kottashaya['name']; ?></option>
+        <?php endforeach; endif; ?>
       </select>
     </div>
   </div>
@@ -121,8 +135,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="form-group row">
     <label for="divition" class="col-2 col-form-label">GN Division</label>
     <div class="col-10">
-      <select name="divition" id="divition" class="select2Single form-control" required disabled>
+      <select name="divition" id="divition" class="select2Single form-control" required >
         <option value="">Select GN Division</option>
+        <?php 
+          if( is_array($gn_divisions) && !empty($gn_divisions) ):
+            foreach( $gn_divisions as $divition ):
+              $selected = ( $result->wasama == $divition['id'] ) ? 'selected' : '' ;
+        ?>
+          <option value="<?= $divition['id']; ?>" <?= $selected; ?>><?= $divition['name']; ?></option>
+        <?php endforeach; endif; ?>
       </select>
     </div>
   </div>
@@ -130,8 +151,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="form-group row">
     <label for="town" class="col-2 col-form-label">Town</label>
     <div class="col-10">
-      <select name="town" id="town" class="select2Single form-control" required disabled>
+      <select name="town" id="town" class="select2Single form-control" required >
         <option value="">Select Town</option>
+        <?php 
+          if( is_array($towns) && !empty($towns) ):
+            foreach( $towns as $town ):
+              $selected = ( $result->town == $town['id'] ) ? 'selected' : '' ;
+        ?>
+          <option value="<?= $town['id']; ?>" <?= $selected; ?>><?= $town['name']; ?></option>
+        <?php endforeach; endif; ?>
       </select>
     </div>
   </div>
@@ -142,7 +170,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <select name="seat" id="seat" class="select2Single form-control" required>
         <option value="">Seat / Division</option>
         <?php 
-          if( is_array($seats) && !empty(seats) ):
+          if( is_array($seats) && !empty($seats) ):
             foreach( $seats as $seat ):
               $selected = ( $result->asanaya == $seat['id'] ) ? 'selected' : '' ;
         ?>
@@ -158,7 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <select name="school" id="school" class="select2Single form-control" required>
         <option value="">School</option>
         <?php 
-          if( is_array($schools) && !empty(schools) ):
+          if( is_array($schools) && !empty($schools) ):
             foreach( $schools as $school ):
               $selected = ( $result->school == $school['id'] ) ? 'selected' : '' ;
         ?>
@@ -174,7 +202,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <select name="institute" id="institute" class="select2Single form-control" required>
         <option value="">Institute</option>
         <?php 
-          if( is_array($institutes) && !empty(institutes) ):
+          if( is_array($institutes) && !empty($institutes) ):
             foreach( $institutes as $institute ):
               $selected = ( $result->institute == $institute['id'] ) ? 'selected' : '' ;
         ?>
@@ -190,7 +218,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <select name="job" id="job" class="select2Single form-control" required>
         <option value="">Job</option>
         <?php 
-          if( is_array($jobs) && !empty(jobs) ):
+          if( is_array($jobs) && !empty($jobs) ):
             foreach( $jobs as $job ):
               $selected = ( $result->job == $job['id'] ) ? 'selected' : '' ;
         ?>
@@ -206,7 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <select name="office" id="office" class="select2Single form-control" required>
         <option value="">Office</option>
         <?php 
-          if( is_array($offices) && !empty(offices) ):
+          if( is_array($offices) && !empty($offices) ):
             foreach( $offices as $office ):
               $selected = ( $result->office == $office['id'] ) ? 'selected' : '' ;
         ?>
@@ -253,7 +281,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <div class="form-group row"> 
     <div class="col-12">
-      <input type="hidden" name="action" value="add">
+      <input type="hidden" name="action" value="edit">
       <input type="hidden" name="id" value="<?php echo $result->id; ?>">
       <input type="submit" class="btn btn-primary pull-right" value="Edit Member">
     </div>
@@ -262,112 +290,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </form>
 <script>
 jQuery(document).ready(function($) {
-
-  $( window ).on('load',function() {
-      var province = '<?php echo $result->province; ?>';
-      var selectedDistrict = '<?php echo $result->district; ?>';
-      var selectedSecretariat = '<?php echo $result->kottashaya; ?>';
-      var selectedDivition = '<?php echo $result->wasama; ?>';
-      var selectedTown = '<?php echo $result->town; ?>';
-
-      $.ajax({
-          url: '<?=base_url()?>Settings/get_district_relatedto_province',
-          type: 'POST',
-          data: {
-              province: province
-          },
-          dataType: 'json',
-          success: function(results) {
-              //console.log(results);
-              if( results.status === true ){
-                  $('#district').html('<option value="">Select District</option>');
-                  $.each(results.content, function (index, val) {
-                      if( val.id == selectedDistrict ){
-                          $('#district').append('<option value="'+val.id+'" selected>'+val.district+'</option>');
-                      }else{
-                          $('#district').append('<option value="'+val.id+'">'+val.district+'</option>');
-                      }
-                  });
-                  $('#district').removeAttr('disabled');
-              }
-          }
-      });
-
-      $.ajax({
-          url: '<?=base_url()?>Settings/get_kottasha_relatedto_province_and_district',
-          type: 'POST',
-          data: {
-              province: province,
-              district: selectedDistrict
-          },
-          dataType: 'json',
-          success: function(results) {
-              //console.log(results);
-              if( results.status === true ){
-                  $('#divi_secretariat').html('<option value="">Select Divisional Secretariat</option>');
-                  $.each(results.content, function (index, val) { 
-                      if( val.id == selectedSecretariat ){
-                          $('#divi_secretariat').append('<option value="'+val.id+'" selected>'+val.name+'</option>');
-                      }else{
-                          $('#divi_secretariat').append('<option value="'+val.id+'">'+val.name+'</option>');
-                      }
-                  });
-                  $('#divi_secretariat').removeAttr('disabled');
-              }
-          }
-      });
-
-      $.ajax({
-          url: '<?=base_url()?>Settings/get_divition_relatedto_province_district_and_kottasha',
-          type: 'POST',
-          data: {
-              province: province,
-              district: selectedDistrict,
-              kottasha: selectedSecretariat
-          },
-          dataType: 'json',
-          success: function(results) {
-              console.log(results);
-              if( results.status === true ){
-                  $('#divition').html('<option value="">Select GN Division</option>');
-                  $.each(results.content, function (index, val) { 
-                      if( val.id == selectedDivition ){
-                          $('#divition').append('<option value="'+val.id+'" selected>'+val.name+'</option>');
-                      }else{
-                          $('#divition').append('<option value="'+val.id+'">'+val.name+'</option>');
-                      }
-                  });
-                  $('#divition').removeAttr('disabled');
-              }
-          }
-      });
-
-      $.ajax({
-          url: '<?=base_url()?>Users/get_towns_relatedto_divition',
-          type: 'POST',
-          data: {
-              province: province,
-              district: selectedDistrict,
-              kottasha: selectedSecretariat, 
-              divition: selectedDivition
-          },
-          dataType: 'json',
-          success: function(results) {
-              console.log(results);
-              if( results.status === true ){
-                  $.each(results.content, function (index, val) { 
-                    if( val.id == selectedTown ){
-                      $('#town').append('<option value="'+val.id+'" selected>'+val.name+'</option>');
-                    }else{
-                      $('#town').append('<option value="'+val.id+'">'+val.name+'</option>');
-                    }
-                  });
-                  $('#town').removeAttr('disabled');
-              }
-          }
-      });
-
-  });
   
   $('#province').on('change', function () {
       var province = $(this).val();

@@ -35,7 +35,7 @@ $result = $result[0];
             <select name="province" id="province" class="select2Single form-control" required>
                 <option value="">Select Province</option>
                 <?php 
-                if( is_array($provinces) && !empty(provinces) ):
+                if( is_array($provinces) && !empty($provinces) ):
                     foreach( $provinces as $province ):
                         $selected = ($result['province'] == $province['id'] ) ? 'selected' : '' ;
                 ?>

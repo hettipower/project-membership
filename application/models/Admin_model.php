@@ -281,8 +281,8 @@ class Admin_model extends CI_Model {
     }
 
     public function updateAdmins($postData=null, $action=null) {
-        if ($action == "add") {
 
+        if ($action == "add") {
             $username = (isset($postData["username"])) ? $postData["username"] : '' ;
             $password = (isset($postData["password"])) ? $postData["password"] : '' ;
             $password_con = (isset($postData["password_con"])) ? $postData["password_con"] : '' ;
@@ -373,7 +373,7 @@ class Admin_model extends CI_Model {
                 $query = $this->db->query($sql);
                 if ($query->num_rows() > 0) {
                     if ($pass == 0) {
-                        $sql = "UPDATE `users` SET `username`=$username, `email`=$email, `admin_group`=$admin_group, `name`=$fname, `nic`=$nic, `address`=$address, `province`=$province, `district`=$district, `kottashaya`=$divi_secretariat, `wasama`=$divition, `town`=$town, `asanaya`=$seat, `contact_no`=$contact_no, `school`=$school, `institute`=$institute, `job`=$job, `office`=$office, `political_institute`=$political_institute, `candidate`=$candidate, `other`=$other WHERE ".$this->db->escape($userID);
+                        $sql = "UPDATE `users` SET `username`='$username', `email`='$email', `admin_group`=$admin_group, `name`='$fname', `nic`='$nic', `address`='$address', `province`=$province, `district`=$district, `kottashaya`=$divi_secretariat, `wasama`=$divition, `town`=$town, `asanaya`=$seat, `contact_no`='$contact_no', `school`=$school, `institute`=$institute, `job`=$job, `office`=$office, `political_institute`='$political_institute', `candidate`='$candidate', `other`='$other' WHERE id = ".$userID;
                         //$sql = "UPDATE users SET email = $email, name = $name, admin_group = $admin_group, address = $address, address2 = $address2, city = $city, state = $state, zip = $zip WHERE id = ".$this->db->escape($query->row()->id);
                         $this->db->query($sql);
                         return 6;
@@ -383,7 +383,7 @@ class Admin_model extends CI_Model {
                         }
                         $salt = $this->generateSalt();
                         $password = $this->db->escape(md5($salt.$password));
-                        $sql = "UPDATE `users` SET `username`=$username, `password`=$password, `email`=$email, `admin_group`=$admin_group, `name`=$fname, `nic`=$nic, `address`=$address, `province`=$province, `district`=$district, `kottashaya`=$divi_secretariat, `wasama`=$divition, `town`=$town, `asanaya`=$seat, `contact_no`=$contact_no, `school`=$school, `institute`=$institute, `job`=$job, `office`=$office, `political_institute`=$political_institute, `candidate`=$candidate, `other`=$other WHERE ".$this->db->escape($userID);
+                        $sql = "UPDATE `users` SET `username`='$username', `password`=$password, `email`='$email', `admin_group`=$admin_group, `name`='$fname', `nic`='$nic', `address`='$address', `province`=$province, `district`=$district, `kottashaya`=$divi_secretariat, `wasama`=$divition, `town`=$town, `asanaya`=$seat, `contact_no`='$contact_no', `school`=$school, `institute`=$institute, `job`=$job, `office`=$office, `political_institute`='$political_institute', `candidate`='$candidate', `other`='$other' WHERE id = ".$userID;
                         $this->db->query($sql);
                         return 6;
                     }   

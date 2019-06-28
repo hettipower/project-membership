@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <select name="province" id="province" class="select2Single form-control" required>
                 <option value="">Select Province</option>
                 <?php 
-                if( is_array($provinces) && !empty(provinces) ):
+                if( is_array($provinces) && !empty($provinces) ):
                     foreach( $provinces as $province ):
                 ?>
                 <option value="<?= $province['id']; ?>"><?= $province['province']; ?></option>

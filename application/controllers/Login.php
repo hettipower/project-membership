@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 		$data["error"] = 0;
 		if ($this->input->post()){ 
 			if ($this->session->userdata("loginattempts")) {
-				echo "2";
+				//echo "2";
 				$postData = $this->input->post();
 				$loginattempts = $this->session->userdata("loginattempts");
 				if ($loginattempts > 4) { 
@@ -31,7 +31,7 @@ class Login extends CI_Controller {
 					}
 				 } 
 			} else {
-				echo "1";
+				//echo "1";
 				$this->session->set_userdata("loginattempts", 0);
 				$postData = $this->input->post();
 				$auth = $this->Admin_model->adminLogin($postData);
