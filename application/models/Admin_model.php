@@ -233,6 +233,16 @@ class Admin_model extends CI_Model {
         } 
     }
 
+    function getInstitutes(){
+        $sql = "SELECT * FROM institutes";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        } 
+    }
+
     public function updateAdmins($postData=null, $action=null) {
             if ($action == "add") {
                     $error = 0;
@@ -975,6 +985,75 @@ class Admin_model extends CI_Model {
             $additional = "WHERE id = ".$this->db->escape($additional); 
         }
         $sql = "SELECT * FROM schools ".$additional;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
+    }
+
+    public function updateInstitute($postData=null, $action=null) {
+        $results = array();
+        if ($action == "add") {
+            $error = 0;
+            if (!isset($postData["institute"]) || empty($postData["institute"])) { 
+                $error = 2;
+            } else { 
+                $institute = $this->db->escape(strip_tags($postData["institute"]));
+                $instituteID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM institutes WHERE name = ".$institute;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 3;
+            } else {
+                $sql2 = "INSERT INTO institutes (name,id) VALUES (".$institute.",".$instituteID.")";
+                $this->db->query($sql2);
+                return 1;
+            }
+        }
+        if ($action == "edit") {
+            $error = 0;
+            if (!isset($postData["institute"]) || empty($postData["institute"])) { 
+                $error = 2;
+            } else { 
+                $institute = $this->db->escape(strip_tags($postData["institute"]));
+            }
+            if (!isset($postData["id"]) || empty($postData["id"])) { 
+                $error = 2;
+            } else { 
+                $instituteID = $this->db->escape(strip_tags($postData["id"]));
+            }
+            if ($error == 2) { 
+                return $error; 
+            }
+            $sql = "SELECT * FROM institutes WHERE name = ".$institute;
+            $query = $this->db->query($sql);
+            if ($query->num_rows() > 0) {
+                return 4;
+            } else {
+                $sql2 = "UPDATE institutes SET name = ".$institute." WHERE id = ".$instituteID;
+                $this->db->query($sql2);
+                return 5;
+            }
+        }
+        if ($action == "delete") {
+            $instituteID = $this->db->escape(strip_tags((int)$postData["id"]));
+            $sql2 = "DELETE FROM institutes WHERE id = ".$instituteID;
+            $this->db->query($sql2);
+            return 7;
+        }
+    }
+
+    public function getInstituteFormID($additional="") {
+        if ($additional !== "") { 
+            $additional = "WHERE id = ".$this->db->escape($additional); 
+        }
+        $sql = "SELECT * FROM institutes ".$additional;
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result_array();
