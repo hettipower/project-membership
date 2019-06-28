@@ -69,7 +69,7 @@
       <select name="province" id="province" class="select2Single form-control" required>
         <option value="">Select Province</option>
         <?php 
-          if( is_array($provinces) && !empty(provinces) ):
+          if( is_array($provinces) && !empty($provinces) ):
             foreach( $provinces as $province ):
         ?>
           <option value="<?= $province['id']; ?>"><?= $province['province']; ?></option>
@@ -120,7 +120,7 @@
       <select name="seat" id="seat" class="select2Single form-control" required>
         <option value="">Seat / Division</option>
         <?php 
-          if( is_array($seats) && !empty(seats) ):
+          if( is_array($seats) && !empty($seats) ):
             foreach( $seats as $seat ):
         ?>
           <option value="<?= $seat['id']; ?>"><?= $seat['name']; ?></option>
@@ -135,7 +135,7 @@
       <select name="school" id="school" class="select2Single form-control" required>
         <option value="">School</option>
         <?php 
-          if( is_array($schools) && !empty(schools) ):
+          if( is_array($schools) && !empty($schools) ):
             foreach( $schools as $school ):
         ?>
           <option value="<?= $school['id']; ?>"><?= $school['name']; ?></option>
@@ -150,7 +150,7 @@
       <select name="institute" id="institute" class="select2Single form-control" required>
         <option value="">Institute</option>
         <?php 
-          if( is_array($institutes) && !empty(institutes) ):
+          if( is_array($institutes) && !empty($institutes) ):
             foreach( $institutes as $institute ):
         ?>
           <option value="<?= $institute['id']; ?>"><?= $institute['name']; ?></option>
@@ -165,7 +165,7 @@
       <select name="job" id="job" class="select2Single form-control" required>
         <option value="">Job</option>
         <?php 
-          if( is_array($jobs) && !empty(jobs) ):
+          if( is_array($jobs) && !empty($jobs) ):
             foreach( $jobs as $job ):
         ?>
           <option value="<?= $job['id']; ?>"><?= $job['name']; ?></option>
@@ -180,7 +180,7 @@
       <select name="office" id="office" class="select2Single form-control" required>
         <option value="">Office</option>
         <?php 
-          if( is_array($offices) && !empty(offices) ):
+          if( is_array($offices) && !empty($offices) ):
             foreach( $offices as $office ):
         ?>
           <option value="<?= $office['id']; ?>"><?= $office['name']; ?></option>
