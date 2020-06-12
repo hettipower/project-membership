@@ -2,11 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed'); 
 ?>
 
+
 <!-- Breadcrumbs -->
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
     <li class="breadcrumb-item">Settings</li>
-    <li class="breadcrumb-item active">Groups</li>
+    <li class="breadcrumb-item active">Offices</li>
 </ol>
 
 <?php if( $this->session->flashdata('success') ): ?>
@@ -25,12 +26,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </button>
     </div>
 <?php endif; ?>
- 
 
 <!-- Example Tables Card -->
 <div class="card mb-3">
     <div class="card-header d-flex justify-content-between align-items-center">
-        Admin Groups <a href="<?=base_url()?>users/groups/add" class="btn btn-primary">Add New</a>
+        <span>Provinces</span>
+        <a href="<?=base_url()?>other/offices/add" class="btn btn-primary">Add New</a>
     </div>
     <div class="card-block">
         <div class="table-responsive">
@@ -38,29 +39,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th> 
-                        <th>Actions</th>
+                        <th>Office</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th> 
-                        <th>Actions</th>
+                        <th>Office</th>
+                        <th>Action</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                <?php foreach ($groups as $v) { ?>
+                <?php foreach ($offices as $office) { ?>
                     <tr>
-                        <td><?=$v["id"]?></td>
-                        <td><?=$v["name"]?></td> 
+                        <td><?=$office["id"]?></td>
+                        <td><?= $office["name"]; ?></td>
                         <td>
                             <form method="POST" action="" style="display:inline;">
                                 <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="id" value="<?=$v["id"]?>">
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                            </form>
-                            <a href="<?=base_url()?>users/groups/edit/<?=$v["id"]?>" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <input type="hidden" name="id" value="<?=$office["id"]?>">
+                                <input type="submit" class="btn btn-danger" value="Delete">
+                            </form> 
+                            <a href="<?=base_url()?>other/offices/edit/<?=$office["id"]?>" class="btn btn-primary">Edit</a>
                         </td>
                     </tr>
                 <?php } ?> 
