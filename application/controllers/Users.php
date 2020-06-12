@@ -19,7 +19,7 @@ class Users extends CI_Controller {
 			if ($page == "add") {
 				$data["admin_groups"] = $this->Admin_model->getAdminGroups();
 				$data["provinces"] = $this->Admin_model->getProvinces();
-				$data["districts"] = $this->Admin_model->getDistricts();
+				$data["seats"] = $this->Admin_model->getSeats();
 				$this->load->view('header' , $data);
 				$this->load->view('users/member_add', $data);
 				$this->load->view('footer');
